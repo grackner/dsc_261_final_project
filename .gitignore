@@ -1,0 +1,19 @@
+# Ignore Python virtual environments
+venv/
+.env/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore system or editor files
+.DS_Store
+*.swp
+
+# Ignore model or data outputs
+Mistral 7B Data Generations/
+*.jsonl
+*.db
+*.zip
+*.log
