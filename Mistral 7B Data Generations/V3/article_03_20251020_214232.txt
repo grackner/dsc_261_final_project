@@ -1,0 +1,44 @@
+### PROMPT USED ###
+Create a synthetic news article and highlights in the style of CNN/DailyMail dataset with the following structure:
+
+ARTICLE FORMAT:
+- News-style reporting with factual tone
+- 500-800 words average length
+- Include key details in the first third (inverted pyramid style)
+- Cover current events, politics, technology, or human interest
+- Use proper journalistic language
+
+HIGHLIGHTS FORMAT:
+- 2-3 concise bullet points summarizing key facts
+- 50-60 words total
+- Capture the most important information
+- Written as complete sentences
+
+Generate both the full article and highlights. Ensure the content reflects real-world news reporting style but is entirely fictional.
+
+### MODEL OUTPUT ###
+**Article**
+
+Title: "Elon Musk Unveils Revolutionary AI-Powered Spacecraft at SpaceX Headquarters"
+
+In a groundbreaking announcement that sent ripples through the tech and space industries, Elon Musk unveiled his latest innovation at SpaceX headquarters in Hawthorne, California. The event marked the first public demonstration of an AI-powered spacecraft, a monumental leap forward in the realm of space exploration.
+
+The AI-integrated vessel, dubbed Starship 3.0, is designed to autonomously navigate through space and potentially even self-repair in the event of damage. This advancement could significantly reduce the cost and complexity associated with human-led missions.
+
+Musk, the visionary CEO of SpaceX and Tesla, emphasized the potential benefits of this technology, stating, "We're not just building a spacecraft; we're building a tool that can help us better understand our universe."
+
+The AI system is powered by advanced machine learning algorithms and equipped with cutting-edge sensors to navigate through space. It is also capable of making split-second decisions based on real-time data, a feature Musk described as "critical for the success of any mission."
+
+Despite the excitement surrounding this announcement, some critics raise concerns about the potential risks associated with autonomous spacecrafts. However, Musk remains confident, pointing to the extensive safety measures built into the Starship 3.0 and his team's commitment to continuous improvement.
+
+The unveiling of the AI-powered spacecraft is just the latest in a string of innovative advancements from SpaceX. With plans for manned missions to Mars and a potential partnership with NASA, it seems that Musk's vision for a future of interplanetary travel may be closer than we think.
+
+**Highlights**
+
+- Elon Musk unveiled an AI-powered spacecraft at SpaceX headquarters
+- The Starship 3.0 is designed to autonomously navigate and potentially self-repair
+- Advanced machine learning algorithms power the AI system
+- Critics raise concerns, but Musk remains confident in safety measures
+- SpaceX plans for manned missions to Mars and potential partnership with NASA
+
+### GENERATION TIME: 8.73 seconds ###

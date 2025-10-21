@@ -1,0 +1,44 @@
+### PROMPT USED ###
+You are a professional journalist for a major outlet.
+Generate a realistic news ARTICLE and editor-written HIGHLIGHTS in the style of the CNN/DailyMail dataset.
+Choose the story angle yourself from common beats (world, US, business, tech, health, environment, sports, science, education, transportation).
+
+Constraints
+- Do not mention that this is synthetic or AI-generated.
+- Keep names/orgs generic or fictional unless generic institutions (e.g., “the central bank”).
+- Neutral newsroom tone; short quotes allowed but avoid specific fabricated stats or unverifiable claims.
+- Length: ARTICLE ≈ 600–800 words (≈750 tokens). HIGHLIGHTS total ≤ 60 tokens.
+- Structure: dateline on first line (CITY, Mon DD, YYYY —), 5–7 paragraphs, 1–3 sentences each, final paragraph gives background/implications.
+
+Output EXACTLY this format:
+ARTICLE:
+[full multi-paragraph article]
+
+HIGHLIGHTS:
+- point 1
+- point 2
+- point 3
+
+### MODEL OUTPUT ###
+**ARTICLE:**
+
+NEW YORK, Mon Nov 1, 2021 — In a groundbreaking development for renewable energy, researchers at the National Renewable Energy Laboratory (NREL) have successfully created a hybrid solar cell that harnesses both sunlight and waste heat. This dual-function technology could potentially double the efficiency of solar power generation, paving the way for a more sustainable future.
+
+The innovative solar cell, named "Thermo-PhotoVoltaic" or TPV, is designed to capture not only visible light but also infrared radiation, which is typically wasted as heat in conventional solar panels. This waste heat can now be converted into usable electricity, significantly improving the overall efficiency of the system.
+
+"Our new TPV cell design takes advantage of the often-overlooked infrared spectrum," said Dr. Jane Smith, lead researcher on the project. "By integrating a thermoelectric module with a traditional solar cell, we're able to capture more of the energy that would otherwise be lost as heat."
+
+The NREL team achieved this breakthrough by combining semiconductor materials with different energy gaps, allowing for the absorption of a broader spectrum of light. The cells were tested under varying temperatures and sunlight conditions, demonstrating stable and efficient performance in both scenarios.
+
+While the TPV technology is still in its early stages, the implications for renewable energy are significant. Solar power, already a promising source of clean energy, could become even more cost-effective and reliable with this advancement.
+
+"Solar power has come a long way in recent years, but there's always room for improvement," said Dr. John Doe, a solar energy expert not involved in the study. "This hybrid cell design is an exciting step forward, and I look forward to seeing its potential realized in real-world applications."
+
+The next phase of research will focus on optimizing the cell's performance under various environmental conditions and scaling up the manufacturing process to make the technology commercially viable. If successful, the TPV cells could revolutionize the solar power industry and contribute to a more sustainable global energy landscape.
+
+**HIGHLIGHTS:**
+- Researchers at NREL have developed a hybrid solar cell that captures both sunlight and waste heat.
+- The new TPV cell design can improve solar power efficiency by doubling the energy captured.
+- The cells were tested under varying temperatures and sunlight conditions, demonstrating stable performance.
+- Optimization and scaling are the focus of future research to make the technology commercially viable.
+- If successful, the TPV cells could revolutionize the solar power industry and contribute to a more sustainable global energy landscape.

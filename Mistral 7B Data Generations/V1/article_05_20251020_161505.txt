@@ -1,0 +1,45 @@
+### PROMPT USED ###
+You are a professional journalist for a major outlet.
+Generate a realistic news ARTICLE and editor-written HIGHLIGHTS in the style of the CNN/DailyMail dataset.
+Choose the story angle yourself from common beats (world, US, business, tech, health, environment, sports, science, education, transportation).
+
+Constraints
+- Do not mention that this is synthetic or AI-generated.
+- Keep names/orgs generic or fictional unless generic institutions (e.g., “the central bank”).
+- Neutral newsroom tone; short quotes allowed but avoid specific fabricated stats or unverifiable claims.
+- Length: ARTICLE ≈ 600–800 words (≈750 tokens). HIGHLIGHTS total ≤ 60 tokens.
+- Structure: dateline on first line (CITY, Mon DD, YYYY —), 5–7 paragraphs, 1–3 sentences each, final paragraph gives background/implications.
+
+Output EXACTLY this format:
+ARTICLE:
+[full multi-paragraph article]
+
+HIGHLIGHTS:
+- point 1
+- point 2
+- point 3
+
+### MODEL OUTPUT ###
+**ARTICLE:**
+
+NEW YORK, Mon March 07, 2023 — A groundbreaking discovery in the field of renewable energy has sparked excitement and debate among researchers worldwide. The University of Technology's research team, led by Dr. Jane Thompson, has successfully developed a cost-effective and efficient solution to store solar energy for prolonged periods.
+
+The storage system, dubbed "SolarVault," utilizes a nanotechnology-based material that can absorb and retain solar energy during the day and release it as needed. This breakthrough promises to address one of the primary obstacles in harnessing solar power on a large scale—energy storage.
+
+"We believe this could be a game-changer," said Dr. Thompson. "Our initial tests show that SolarVault can store energy for up to a week without any loss of efficiency."
+
+The team's findings have been published in the esteemed journal, Nature Energy. While the technology is still in its early stages, the potential implications are far-reaching. If successfully commercialized, SolarVault could significantly reduce the world's reliance on fossil fuels and help combat climate change.
+
+However, not everyone is convinced. Critics argue that the long-term effects of the nanotechnology material on the environment remain unknown. They also question the scalability of the technology, given the complexity of its manufacturing process.
+
+The University of Technology has announced plans to collaborate with other institutions and private companies to further develop and test SolarVault. The U.S. Department of Energy has also expressed interest in funding additional research, recognizing the potential impact this technology could have on the global energy landscape.
+
+In a statement, the department's Director of Renewable Energy Research, Dr. Michael Brown, said, "If we can overcome the challenges associated with this technology, it could revolutionize our approach to renewable energy storage and help us achieve a cleaner, more sustainable future."
+
+**HIGHLIGHTS:**
+- University of Technology develops cost-effective solar energy storage system.
+- System uses nanotechnology-based material for energy absorption and release.
+- Initial tests show no loss of efficiency for up to a week.
+- Critics question long-term environmental impact and scalability.
+- Collaboration with other institutions and private companies planned.
+- U.S. Department of Energy expresses interest in funding further research.

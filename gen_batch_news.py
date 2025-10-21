@@ -1,55 +1,63 @@
 # generate_batch_news.py
 from pathlib import Path
 from datetime import datetime
+import time
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_ollama import ChatOllama
 
 PROMPT = """
-You are a professional journalist for a major outlet.
-Generate a realistic news ARTICLE and editor-written HIGHLIGHTS in the style of the CNN/DailyMail dataset.
-Choose the story angle yourself from common beats (world, US, business, tech, health, environment, sports, science, education, transportation).
+Create a synthetic news article and highlights in the style of CNN/DailyMail dataset with the following structure:
 
-Constraints
-- Do not mention that this is synthetic or AI-generated.
-- Keep names/orgs generic or fictional unless generic institutions (e.g., “the central bank”).
-- Neutral newsroom tone; short quotes allowed but avoid specific fabricated stats or unverifiable claims.
-- Length: ARTICLE ≈ 600–800 words (≈750 tokens). HIGHLIGHTS total ≤ 60 tokens.
-- Structure: dateline on first line (CITY, Mon DD, YYYY —), 5–7 paragraphs, 1–3 sentences each, final paragraph gives background/implications.
+ARTICLE FORMAT:
+- News-style reporting with factual tone
+- 500-800 words average length
+- Include key details in the first third (inverted pyramid style)
+- Cover current events, politics, technology, or human interest
+- Use proper journalistic language
 
-Output EXACTLY this format:
-ARTICLE:
-[full multi-paragraph article]
+HIGHLIGHTS FORMAT:
+- 2-3 concise bullet points summarizing key facts
+- 50-60 words total
+- Capture the most important information
+- Written as complete sentences
 
-HIGHLIGHTS:
-- point 1
-- point 2
-- point 3
+Generate both the full article and highlights. Ensure the content reflects real-world news reporting style but is entirely fictional.
 """.strip()
 
 def main(n=5, out_dir="Mistral 7B Data Generations"):
     out_path = Path(out_dir)
     out_path.mkdir(parents=True, exist_ok=True)
 
-    llm = ChatOllama(model="mistral", temperature=0.7, top_p=0.9, repeat_penalty=1.05)
+    llm = ChatOllama(model="mistral", temperature=0.8, top_p=0.9, repeat_penalty=1.1)
     msg_tmpl = ChatPromptTemplate.from_template(PROMPT)
 
-    for i in range(1, n + 1):
-        # build message once per generation
-        messages = msg_tmpl.format_messages()
-        res = llm.invoke(messages)  # res.content = ARTICLE + HIGHLIGHTS text
+    total_start = time.perf_counter()
+    durations = []
 
-        # filename: timestamp + index (avoid overwrites)
+    for i in range(1, n + 1):
+        start = time.perf_counter()
+        messages = msg_tmpl.format_messages()
+        res = llm.invoke(messages)
+        end = time.perf_counter()
+
+        elapsed = end - start
+        durations.append(elapsed)
+
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         fname = out_path / f"article_{i:02d}_{ts}.txt"
 
-        # write prompt (as header) + a separator + model output
         with open(fname, "w", encoding="utf-8") as f:
             f.write("### PROMPT USED ###\n")
             f.write(PROMPT + "\n\n")
             f.write("### MODEL OUTPUT ###\n")
             f.write(res.content.strip() + "\n")
+            f.write(f"\n### GENERATION TIME: {elapsed:.2f} seconds ###\n")
 
-        print(f"Wrote: {fname}")
+        print(f"[{i}/{n}] Wrote: {fname} ({elapsed:.2f}s)")
+
+    total_elapsed = time.perf_counter() - total_start
+    avg_time = sum(durations) / len(durations)
+    print(f"\n Finished {n} generations in {total_elapsed:.2f}s (avg {avg_time:.2f}s per article)")
 
 if __name__ == "__main__":
     main(n=5)

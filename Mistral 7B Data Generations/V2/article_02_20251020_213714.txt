@@ -1,0 +1,57 @@
+### PROMPT USED ###
+You are a journalist for a major news outlet.
+Write a factual news ARTICLE and short HIGHLIGHTS in the style of the CNN/DailyMail dataset.
+
+Tone and style:
+- Write like a real human reporter, not a press release.
+- Avoid clichés such as "groundbreaking development," "major breakthrough," or "experts say."
+- Use natural, varied verbs (e.g., "announced," "reported," "warned," "revealed," "confirmed").
+- Begin with a clear lead sentence that answers who/what/where/when.
+- Mix short and medium-length sentences for rhythm.
+- Include 1–2 realistic quotes (generic but human), attributed to plausible sources (e.g., officials, witnesses, analysts).
+- Keep an objective tone; do not exaggerate.
+- End with a short context paragraph about background or next steps.
+
+Structure:
+- Dateline: CITY, Mon DD, YYYY —
+- 5–7 short paragraphs (1–3 sentences each)
+- Total length: ~750 tokens
+- Highlights: 3–5 bullet points (≤60 tokens total)
+
+Output format:
+ARTICLE:
+[full article text]
+
+HIGHLIGHTS:
+- point 1
+- point 2
+- point 3
+
+### MODEL OUTPUT ###
+**Dateline: WASHINGTON, D.C., Mon, October 4, 2021**
+
+The Centers for Disease Control and Prevention (CDC) has issued a warning about a potential surge in influenza cases this winter, as the coronavirus pandemic continues to dominate healthcare resources.
+
+In a press conference on Monday, CDC Director Dr. Rochelle Walensky warned that the combination of COVID-19 and flu could strain an already overburdened healthcare system. "We have a window of opportunity to get the majority of Americans vaccinated against influenza," she said.
+
+The CDC reported that during the 2020-2021 flu season, influenza activity was lower than expected due to COVID-19 precautions like mask-wearing and social distancing. However, they warned that these measures may not be enough to prevent a resurgence of the flu this year.
+
+Dr. Anthony Fauci, the nation's leading infectious disease expert, also expressed concern about the upcoming flu season. "We cannot afford to have a concurrent surge in influenza and COVID-19," he said. "Getting vaccinated against both diseases is the best way to protect yourself and your loved ones."
+
+The CDC recommended that everyone 6 months and older get a flu shot as soon as it becomes available. They also urged people to continue practicing good hand hygiene, wearing masks, and maintaining social distancing to help prevent the spread of both viruses.
+
+Officials warned that the upcoming flu season could be particularly dangerous for vulnerable populations, such as the elderly, young children, and those with underlying health conditions. They urged these groups to take extra precautions to protect themselves.
+
+In a statement, the American Medical Association (AMA) echoed the CDC's warning and encouraged everyone to get vaccinated against both flu and COVID-19. "We must do everything we can to protect our communities and prevent a potential surge in respiratory illnesses this winter," the AMA said.
+
+Background: The flu is a highly contagious respiratory illness caused by influenza viruses. It can cause mild to severe symptoms and can lead to serious complications, such as pneumonia and hospitalization. The flu vaccine is the best way to protect against the flu and its complications.
+
+Next steps: The CDC recommends getting a flu shot as soon as it becomes available. They also urge people to continue practicing good hand hygiene, wearing masks, and maintaining social distancing to help prevent the spread of both viruses.
+
+**HIGHLIGHTS:**
+
+* The CDC has issued a warning about a potential surge in influenza cases this winter.
+* Dr. Rochelle Walensky urged Americans to get vaccinated against influenza as soon as it becomes available.
+* Dr. Anthony Fauci expressed concern about the upcoming flu season and urged people to get vaccinated against both flu and COVID-19.
+* The CDC recommended that everyone 6 months and older get a flu shot this year.
+* Officials warned that the upcoming flu season could be particularly dangerous for vulnerable populations, such as the elderly and young children.
