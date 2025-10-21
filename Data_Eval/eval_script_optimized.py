@@ -21,6 +21,8 @@ from tqdm import tqdm
 import gc
 import os
 from datetime import datetime
+import argparse
+import json
 
 # --- Setup Logging ---
 def setup_logging():
@@ -176,25 +178,29 @@ def evaluate_statistical_properties(real_texts, synthetic_texts, logger):
                 tokens = doc.lower().split()
                 synth_vocab.update(tokens)
                 synth_token_count += len(tokens)
-        
-        # Calculate metrics
+        # Calculate metrics (handle empty lists)
+        real_avg_len = np.mean(real_lengths) if real_lengths else 0.0
+        real_std = np.std(real_lengths) if real_lengths else 0.0
+        synth_avg_len = np.mean(synth_lengths) if synth_lengths else 0.0
+        synth_std = np.std(synth_lengths) if synth_lengths else 0.0
+
         real_ttr = len(real_vocab) / real_token_count if real_token_count else 0
         synth_ttr = len(synth_vocab) / synth_token_count if synth_token_count else 0
-        
+
         # Log results
         logger.info("\nStatistical Properties Results:")
-        logger.info(f"Real data - Avg length: {np.mean(real_lengths):.2f} (Std: {np.std(real_lengths):.2f})")
-        logger.info(f"Synthetic data - Avg length: {np.mean(synth_lengths):.2f} (Std: {np.std(synth_lengths):.2f})")
+        logger.info(f"Real data - Avg length: {real_avg_len:.2f} (Std: {real_std:.2f})")
+        logger.info(f"Synthetic data - Avg length: {synth_avg_len:.2f} (Std: {synth_std:.2f})")
         logger.info(f"Real data - TTR: {real_ttr:.4f}")
         logger.info(f"Synthetic data - TTR: {synth_ttr:.4f}")
-        
+
         # Clean up
         del real_vocab, synth_vocab
         gc.collect()
-        
+
         return {
-            'real_avg_length': np.mean(real_lengths),
-            'synth_avg_length': np.mean(synth_lengths),
+            'real_avg_length': real_avg_len,
+            'synth_avg_length': synth_avg_len,
             'real_ttr': real_ttr,
             'synth_ttr': synth_ttr
         }
@@ -259,12 +265,20 @@ def run_perplexity_evaluation(real_texts, synthetic_texts, logger):
             synth_total_nll += nll
             synth_total_tokens += tokens
 
-        # Calculate final perplexity scores
-        real_perplexity = torch.exp(torch.tensor(real_total_nll / real_total_tokens))
-        synth_perplexity = torch.exp(torch.tensor(synth_total_nll / synth_total_tokens))
+        # Calculate final perplexity scores (handle zero-token cases)
+        real_perplexity = None
+        synth_perplexity = None
+        if real_total_tokens > 0:
+            real_perplexity = float(torch.exp(torch.tensor(real_total_nll / real_total_tokens)).item())
+            logger.info(f"Real Data Perplexity: {real_perplexity:.4f}")
+        else:
+            logger.warning("No tokens processed for real data perplexity; skipping.")
 
-        logger.info(f"Real Data Perplexity: {real_perplexity.item():.4f}")
-        logger.info(f"Synthetic Data Perplexity: {synth_perplexity.item():.4f}")
+        if synth_total_tokens > 0:
+            synth_perplexity = float(torch.exp(torch.tensor(synth_total_nll / synth_total_tokens)).item())
+            logger.info(f"Synthetic Data Perplexity: {synth_perplexity:.4f}")
+        else:
+            logger.warning("No tokens processed for synthetic data perplexity; skipping.")
 
         # Clean up
         del model
@@ -281,6 +295,10 @@ def evaluate_downstream_task(real_texts, synthetic_texts, logger):
     logger.info("Starting Downstream Task Evaluation...")
     try:
         # Prepare data
+        if not real_texts or not synthetic_texts:
+            logger.warning("Insufficient data for downstream evaluation (need both real and synthetic). Skipping.")
+            return None
+
         data = real_texts + synthetic_texts
         labels = [0] * len(real_texts) + [1] * len(synthetic_texts)
 
@@ -335,67 +353,108 @@ def main():
     # Setup logging
     logger = setup_logging()
     start_time = time.time()
-    
+    parser = argparse.ArgumentParser(description='Optimized evaluation script for text generation')
+    parser.add_argument('--evaluate', choices=['real', 'synthetic', 'both'], default='real',
+                        help='Which datasets to evaluate. Default: real (CNN/DailyMail)')
+    parser.add_argument('--real-file', type=str, default=None, help='Path to local real data file (CSV/JSON)')
+    parser.add_argument('--synthetic-file', type=str, default=None, help='Path to local synthetic data file (CSV/JSON)')
+    parser.add_argument('--num-samples', type=int, default=NUM_SAMPLES, help='Number of samples to use (-1 for all)')
+    parser.add_argument('--batch-size', type=int, default=BATCH_SIZE, help='Batch size for processing')
+    args = parser.parse_args()
+
+    # Override globals if provided
+    global NUM_SAMPLES, BATCH_SIZE
+    NUM_SAMPLES = args.num_samples
+    BATCH_SIZE = args.batch_size
+
     try:
         logger.info("Starting evaluation pipeline...")
         logger.info(f"Using device: {DEVICE}")
-        
-        # Load and preprocess data
-        real_articles = load_real_data(NUM_SAMPLES, logger)
-        
-        # Replace this with your actual synthetic data loading
-        synthetic_articles = [text.replace("CNN", "GMN") for text in real_articles[:len(real_articles)//2]]
-        
-        processed_real = preprocess_text(real_articles, logger)
-        processed_synthetic = preprocess_text(synthetic_articles, logger)
-        
-        # Run evaluations
+
+        # Load real data (either from local file or Hugging Face)
+        if args.real_file:
+            logger.info(f"Loading real data from {args.real_file}")
+            if args.real_file.endswith('.csv'):
+                df_real = pd.read_csv(args.real_file)
+                # user must ensure a column named 'article' exists
+                real_articles = df_real['article'].dropna().astype(str).tolist()
+            else:
+                # try JSON lines or generic json
+                try:
+                    df_real = pd.read_json(args.real_file, lines=True)
+                    real_articles = df_real['article'].dropna().astype(str).tolist()
+                except Exception:
+                    logger.error('Unsupported real-file format. Expect CSV or line-delimited JSON with an "article" field.')
+                    raise
+        else:
+            real_articles = load_real_data(NUM_SAMPLES, logger)
+
+        # Load synthetic data if needed
+        synthetic_articles = []
+        if args.evaluate in ('synthetic', 'both'):
+            if args.synthetic_file:
+                logger.info(f"Loading synthetic data from {args.synthetic_file}")
+                if args.synthetic_file.endswith('.csv'):
+                    df_synth = pd.read_csv(args.synthetic_file)
+                    synthetic_articles = df_synth['generated_article'].dropna().astype(str).tolist()
+                else:
+                    try:
+                        df_synth = pd.read_json(args.synthetic_file, lines=True)
+                        synthetic_articles = df_synth['generated_article'].dropna().astype(str).tolist()
+                    except Exception:
+                        logger.error('Unsupported synthetic-file format. Expect CSV or line-delimited JSON with a "generated_article" field.')
+                        raise
+            else:
+                # Default synthetic generation (placeholder) - only used if synthetic evaluation requested
+                synthetic_articles = [text.replace('CNN', 'GMN') for text in real_articles[:len(real_articles)//2]]
+
+        # Preprocess as needed
+        processed_real = None
+        processed_synthetic = None
+        if args.evaluate in ('real', 'both'):
+            processed_real = preprocess_text(real_articles, logger)
+        if args.evaluate in ('synthetic', 'both'):
+            processed_synthetic = preprocess_text(synthetic_articles, logger)
+
+        results = {}
+
+        # Run Fidelity Evaluations
         logger.info("\n" + "="*20 + " FIDELITY EVALUATION " + "="*20)
-        
-        topic_scores = {
-            'real': evaluate_topic_coherence(processed_real, logger),
-            'synthetic': evaluate_topic_coherence(processed_synthetic, logger)
-        }
-        
-        stat_properties = evaluate_statistical_properties(
-            real_articles,
-            synthetic_articles,
-            logger
-        )
-        
-        perplexity_scores = run_perplexity_evaluation(
-            real_articles,
-            synthetic_articles,
-            logger
-        )
-        
-        logger.info("\n" + "="*20 + " UTILITY EVALUATION " + "="*20)
-        classification_results = evaluate_downstream_task(
-            real_articles,
-            synthetic_articles,
-            logger
-        )
-        
-        # Save results
-        results = {
-            'topic_coherence': topic_scores,
-            'statistical_properties': stat_properties,
-            'perplexity': {
-                'real': perplexity_scores[0],
-                'synthetic': perplexity_scores[1]
-            },
-            'classification': classification_results
-        }
-        
+        if processed_real is not None:
+            results['topic_coherence_real'] = evaluate_topic_coherence(processed_real, logger)
+        if processed_synthetic is not None:
+            results['topic_coherence_synthetic'] = evaluate_topic_coherence(processed_synthetic, logger)
+
+        # Statistical properties (works with empty lists but will log accordingly)
+        results['statistical_properties'] = evaluate_statistical_properties(real_articles, synthetic_articles, logger)
+
+        # Perplexity (only run for requested datasets)
+        if args.evaluate in ('real', 'both') or args.evaluate in ('synthetic', 'both'):
+            perp_real = None
+            perp_synth = None
+            # If either requested, run the runner which can handle empty lists
+            pp = run_perplexity_evaluation(real_articles if args.evaluate in ('real', 'both') else [],
+                                           synthetic_articles if args.evaluate in ('synthetic', 'both') else [],
+                                           logger)
+            if pp:
+                perp_real, perp_synth = pp
+            results['perplexity'] = {'real': perp_real, 'synthetic': perp_synth}
+
+        # Utility evaluation (classifier) only if both datasets are present and requested
+        if args.evaluate == 'both':
+            results['classification'] = evaluate_downstream_task(real_articles, synthetic_articles, logger)
+        else:
+            results['classification'] = None
+
         # Save results to file
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         results_file = f"evaluation_results_{timestamp}.json"
         with open(results_file, 'w') as f:
             json.dump(results, f, indent=4)
-        
+
         logger.info(f"\nResults saved to {results_file}")
         logger.info(f"Total execution time: {(time.time() - start_time)/60:.2f} minutes")
-        
+
     except Exception as e:
         logger.error(f"Critical error in main execution: {str(e)}")
         raise
