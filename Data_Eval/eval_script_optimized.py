@@ -285,7 +285,7 @@ def run_perplexity_evaluation(real_texts, synthetic_texts, logger):
         torch.cuda.empty_cache()
         gc.collect()
 
-    return real_perplexity, synth_perplexity
+        return real_perplexity, synth_perplexity
     except Exception as e:
         logger.error(f"Error in perplexity evaluation: {str(e)}")
         raise
