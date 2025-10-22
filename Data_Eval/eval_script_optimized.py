@@ -285,7 +285,7 @@ def run_perplexity_evaluation(real_texts, synthetic_texts, logger):
         torch.cuda.empty_cache()
         gc.collect()
 
-        return real_perplexity.item(), synth_perplexity.item()
+        return real_perplexity, synth_perplexity
     except Exception as e:
         logger.error(f"Error in perplexity evaluation: {str(e)}")
         raise
@@ -358,14 +358,15 @@ def main():
                         help='Which datasets to evaluate. Default: real (CNN/DailyMail)')
     parser.add_argument('--real-file', type=str, default=None, help='Path to local real data file (CSV/JSON)')
     parser.add_argument('--synthetic-file', type=str, default=None, help='Path to local synthetic data file (CSV/JSON)')
-    parser.add_argument('--num-samples', type=int, default=NUM_SAMPLES, help='Number of samples to use (-1 for all)')
-    parser.add_argument('--batch-size', type=int, default=BATCH_SIZE, help='Batch size for processing')
+    parser.add_argument('--num-samples', type=int, default=None, help='Number of samples to use (-1 for all)')
+    parser.add_argument('--batch-size', type=int, default=None, help='Batch size for processing')
     args = parser.parse_args()
 
-    # Override globals if provided
-    global NUM_SAMPLES, BATCH_SIZE
-    NUM_SAMPLES = args.num_samples
-    BATCH_SIZE = args.batch_size
+    # Override module-level defaults only if provided to avoid 'global' before use errors
+    if args.num_samples is not None:
+        globals()['NUM_SAMPLES'] = args.num_samples
+    if args.batch_size is not None:
+        globals()['BATCH_SIZE'] = args.batch_size
 
     try:
         logger.info("Starting evaluation pipeline...")
