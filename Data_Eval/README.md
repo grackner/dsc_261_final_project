@@ -12,16 +12,69 @@ pip install pandas numpy nltk gensim torch transformers scikit-learn tqdm datase
 
 ## Running the Script
 
+The script now uses a configuration file approach for easier management of evaluation settings.
+
 1. **Basic Usage**:
    ```bash
-   python eval_script_optimized.py
+   python eval_script_optimized.py --config config.json
    ```
 
-2. **Configuration**:
-   The script contains several configurable constants at the top:
-   - `NUM_SAMPLES`: Set to -1 for full dataset, or specify a number for testing
-   - `BATCH_SIZE`: Default is 32, adjust based on your memory capacity
-   - `MAX_TEXT_LENGTH`: Maximum text length for GPT-2 (default: 1024)
+2. **Configuration File**:
+   Create a `config.json` file with your desired settings. Here's a template:
+   ```json
+   {
+       "evaluation": {
+           "type": "both",
+           "data_files": {
+               "real": "path/to/real_data.csv",
+               "synthetic": "path/to/synthetic_data.csv"
+           },
+           "sampling": {
+               "num_samples": -1,
+               "batch_size": 32,
+               "perplexity": {
+                   "enabled": true,
+                   "sample_size": 1000,
+                   "random_seed": 42
+               },
+               "coherence": {
+                   "enabled": true,
+                   "sample_size": 5000,
+                   "random_seed": 42
+               }
+           }
+       },
+       "model_settings": {
+           "max_text_length": 1024,
+           "device": "cuda",
+           "lda": {
+               "num_topics": 10,
+               "passes": 5
+           }
+       },
+       "logging": {
+           "log_dir": "logs",
+           "console_verbosity": "minimal"
+       }
+   }
+   ```
+
+3. **Configuration Options**:
+   - `evaluation.type`: Choose "real", "synthetic", or "both"
+   - `data_files`: Paths to your input data files (CSV or JSON)
+   - `sampling`:
+     - `num_samples`: Total samples to use (-1 for all)
+     - `batch_size`: Processing batch size
+     - `perplexity`: Settings for perplexity evaluation sampling
+     - `coherence`: Settings for topic coherence evaluation sampling
+   - `model_settings`: Model-specific parameters
+   - `logging`: Logging preferences
+
+4. **Sampling Control**:
+   - Both perplexity and coherence evaluations support random sampling
+   - Enable/disable sampling independently
+   - Configure sample sizes and random seeds
+   - Helps reduce computation time while maintaining statistical significance
 
 ## Output Structure
 
@@ -98,6 +151,37 @@ The script includes several memory optimization features:
 - Regular garbage collection
 - CUDA memory management for GPU usage
 - Progress bars for long-running operations
+
+## Configuration Best Practices
+
+1. **Sampling Strategies**:
+   - For large datasets (>10k texts):
+     - Enable perplexity sampling with 1000-2000 samples
+     - Enable coherence sampling with 3000-5000 samples
+   - For small datasets (<1000 texts):
+     - Disable sampling to use full dataset
+   - Always use the same random seed for reproducibility
+
+2. **Performance Optimization**:
+   - Adjust `batch_size` based on available memory
+   - Use smaller sample sizes for initial testing
+   - Enable GPU acceleration when available
+   - Set appropriate `max_text_length` for your use case
+
+3. **Common Issues**:
+   - If running out of memory:
+     - Reduce batch size
+     - Enable sampling with smaller sample sizes
+     - Reduce max_text_length
+   - If evaluation is too slow:
+     - Enable sampling
+     - Increase batch size (if memory allows)
+     - Use GPU acceleration
+
+4. **Version Control**:
+   - Keep different config files for different experiments
+   - Name config files descriptively (e.g., `eval_config_large.json`)
+   - Document sampling parameters used in experiments
 
 ## Troubleshooting
 

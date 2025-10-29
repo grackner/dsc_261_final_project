@@ -1,0 +1,39 @@
+{
+    "evaluation": {
+        "type": "both",
+        "data_files": {
+            "real": "path/to/real_data.csv",
+            "synthetic": "path/to/synthetic_data.csv"
+        },
+        "sampling": {
+            "num_samples": -1,
+            "batch_size": 32,
+            "perplexity": {
+                "enabled": true,
+                "sample_size": 1000,
+                "random_seed": 42
+            },
+            "coherence": {
+                "enabled": true,
+                "sample_size": 5000,
+                "random_seed": 42
+            }
+        }
+    },
+    "model_settings": {
+        "max_text_length": 1024,
+        "device": "cuda",
+        "lda": {
+            "num_topics": 10,
+            "passes": 5,
+            "filter_extremes": {
+                "no_below": 5,
+                "no_above": 0.5
+            }
+        }
+    },
+    "logging": {
+        "log_dir": "logs",
+        "console_verbosity": "minimal"
+    }
+}

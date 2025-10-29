@@ -26,40 +26,125 @@ import json
 
 # --- Setup Logging ---
 def setup_logging():
-    """Configure logging to both file and console with timestamps."""
-    log_dir = "logs"
+    """Configure minimal logging setup."""
+    log_dir = CONFIG.get('logging', {}).get('log_dir', 'logs')
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_file = os.path.join(log_dir, f"eval_log_{timestamp}.txt")
     
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler(log_file),
-            logging.StreamHandler()
-        ]
-    )
-    return logging.getLogger(__name__)
+    # Create logger
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+    
+    # Clear any existing handlers
+    logger.handlers.clear()
+    
+    # File handler with detailed but minimal logging
+    file_handler = logging.FileHandler(log_file)
+    file_handler.setFormatter(logging.Formatter('%(asctime)s - %(message)s'))
+    
+    # Console handler with minimal output
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(logging.Formatter('%(message)s'))
+    
+    # Set log levels based on config
+    verbosity = CONFIG.get('logging', {}).get('verbosity', 'minimal')
+    if verbosity == 'minimal':
+        # Only log major steps and results
+        file_handler.setLevel(logging.INFO)
+        console_handler.setLevel(logging.INFO)
+        # Reduce tqdm output
+        tqdm.monitor_interval = 0
+    else:
+        file_handler.setLevel(logging.DEBUG)
+        console_handler.setLevel(logging.INFO)
+    
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+    
+    # Disable propagation to avoid duplicate logs
+    logger.propagate = False
+    
+    return logger
 
-# --- Constants ---
-NUM_SAMPLES = -1  # Use -1 for full dataset
-BATCH_SIZE = 32   # For batch processing
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-MAX_TEXT_LENGTH = 1024  # Maximum text length for GPT-2
+# --- Config Loading ---
+def load_config(config_path='config.json'):
+    """Load configuration from JSON file with defaults."""
+    try:
+        with open(config_path, 'r') as f:
+            config = json.load(f)
+        
+        # Set defaults if not specified
+        config.setdefault('evaluation', {})
+        config['evaluation'].setdefault('type', 'both')
+        config['evaluation'].setdefault('sampling', {})
+        
+        sampling = config['evaluation']['sampling']
+        sampling.setdefault('num_samples', -1)
+        sampling.setdefault('batch_size', 32)
+        
+        # Perplexity sampling defaults
+        sampling.setdefault('perplexity', {})
+        sampling['perplexity'].setdefault('enabled', True)
+        sampling['perplexity'].setdefault('sample_size', 1000)
+        sampling['perplexity'].setdefault('random_seed', 42)
+        
+        # Coherence sampling defaults
+        sampling.setdefault('coherence', {})
+        sampling['coherence'].setdefault('enabled', True)
+        sampling['coherence'].setdefault('sample_size', 5000)
+        sampling['coherence'].setdefault('random_seed', 42)
+        
+        # Model settings defaults
+        config.setdefault('model_settings', {})
+        config['model_settings'].setdefault('max_text_length', 1024)
+        config['model_settings'].setdefault('device', 'cuda' if torch.cuda.is_available() else 'cpu')
+        
+        return config
+    except FileNotFoundError:
+        print(f"Config file {config_path} not found. Using default settings.")
+        return {
+            'evaluation': {
+                'type': 'both',
+                'sampling': {
+                    'num_samples': -1,
+                    'batch_size': 32,
+                    'perplexity': {
+                        'enabled': True,
+                        'sample_size': 1000,
+                        'random_seed': 42
+                    },
+                    'coherence': {
+                        'enabled': True,
+                        'sample_size': 5000,
+                        'random_seed': 42
+                    }
+                }
+            },
+            'model_settings': {
+                'max_text_length': 1024,
+                'device': 'cuda' if torch.cuda.is_available() else 'cpu'
+            }
+        }
+
+# --- Constants from Config ---
+CONFIG = load_config()
+NUM_SAMPLES = CONFIG['evaluation']['sampling']['num_samples']
+BATCH_SIZE = CONFIG['evaluation']['sampling']['batch_size']
+DEVICE = CONFIG['model_settings']['device']
+MAX_TEXT_LENGTH = CONFIG['model_settings']['max_text_length']
 
 # --- Data Loading and Preprocessing ---
 def load_real_data(num_samples, logger):
-    """Loads the CNN/DailyMail dataset with progress tracking."""
-    logger.info("Loading CNN/DailyMail dataset...")
+    """Loads the CNN/DailyMail dataset."""
     try:
         dataset = load_dataset("cnn_dailymail", "3.0.0", split="train")
         if num_samples != -1:
             dataset = dataset.shuffle(seed=42).select(range(num_samples))
         df = pd.DataFrame(dataset)
-        logger.info(f"Successfully loaded {len(df)} articles")
+        logger.info(f"Loaded {len(df)} real articles")
         return df['article'].tolist()
     except Exception as e:
         logger.error(f"Error loading dataset: {str(e)}")
@@ -80,19 +165,19 @@ def preprocess_batch(texts, stop_words):
     return preprocessed
 
 def preprocess_text(text_list, logger):
-    """Batch process texts with progress tracking."""
-    logger.info("Preprocessing text data...")
+    """Batch process texts."""
     try:
         stop_words = set(stopwords.words('english'))
         preprocessed_texts = []
         
-        # Process in batches with progress bar
-        for i in tqdm(range(0, len(text_list), BATCH_SIZE)):
+        # Process in batches with minimal progress output
+        for i in tqdm(range(0, len(text_list), BATCH_SIZE), 
+                     desc="Preprocessing", 
+                     leave=False):
             batch = text_list[i:i + BATCH_SIZE]
             preprocessed_batch = preprocess_batch(batch, stop_words)
             preprocessed_texts.extend(preprocessed_batch)
-            
-        logger.info(f"Successfully preprocessed {len(preprocessed_texts)} texts")
+        
         return preprocessed_texts
     except Exception as e:
         logger.error(f"Error in preprocessing: {str(e)}")
@@ -100,12 +185,18 @@ def preprocess_text(text_list, logger):
 
 # --- Evaluation Functions ---
 def evaluate_topic_coherence(processed_texts, logger):
-    """Enhanced topic coherence evaluation with progress tracking."""
-    logger.info("Evaluating Topic Coherence...")
+    """Enhanced topic coherence evaluation with configurable sampling."""
     try:
         if not processed_texts:
-            logger.warning("Not enough data to evaluate topic coherence")
             return 0.0
+            
+        # Sample texts if enabled in config
+        coherence_config = CONFIG['evaluation']['sampling']['coherence']
+        if coherence_config['enabled'] and len(processed_texts) > coherence_config['sample_size']:
+            np.random.seed(coherence_config['random_seed'])
+            sample_size = coherence_config['sample_size']
+            processed_texts = list(np.random.choice(processed_texts, size=sample_size, replace=False))
+            logger.info(f"Evaluating topic coherence on {sample_size} samples")
 
         dictionary = Dictionary(processed_texts)
         dictionary.filter_extremes(no_below=5, no_above=0.5)
@@ -235,16 +326,25 @@ def evaluate_perplexity_batch(texts, model, tokenizer, device):
     return total_nll, total_tokens
 
 def run_perplexity_evaluation(real_texts, synthetic_texts, logger):
-    """Enhanced perplexity evaluation with batch processing and memory management."""
-    logger.info("Starting Perplexity Evaluation...")
+    """Enhanced perplexity evaluation with configurable sampling."""
     try:
-        logger.info("Loading GPT-2 model...")
         tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
         model = GPT2LMHeadModel.from_pretrained('gpt2').to(DEVICE)
         model.eval()
 
-        # Evaluate real texts
-        logger.info("Evaluating real texts perplexity...")
+        # Sample texts if enabled in config
+        perplexity_config = CONFIG['evaluation']['sampling']['perplexity']
+        if perplexity_config['enabled']:
+            np.random.seed(perplexity_config['random_seed'])
+            sample_size = perplexity_config['sample_size']
+            
+            if real_texts:
+                real_texts = list(np.random.choice(real_texts, min(sample_size, len(real_texts)), replace=False))
+            if synthetic_texts:
+                synthetic_texts = list(np.random.choice(synthetic_texts, min(sample_size, len(synthetic_texts)), replace=False))
+            
+            logger.info(f"Evaluating perplexity on {len(real_texts)} real and {len(synthetic_texts)} synthetic samples")
+
         real_total_nll = 0
         real_total_tokens = 0
         
@@ -350,23 +450,23 @@ def evaluate_downstream_task(real_texts, synthetic_texts, logger):
         raise
 
 def main():
+    # Parse config file path
+    parser = argparse.ArgumentParser(description='Optimized evaluation script for text generation')
+    parser.add_argument('--config', type=str, default='config.json',
+                      help='Path to configuration file (default: config.json)')
+    args = parser.parse_args()
+    
+    # Load configuration
+    global CONFIG, NUM_SAMPLES, BATCH_SIZE, DEVICE, MAX_TEXT_LENGTH
+    CONFIG = load_config(args.config)
+    NUM_SAMPLES = CONFIG['evaluation']['sampling']['num_samples']
+    BATCH_SIZE = CONFIG['evaluation']['sampling']['batch_size']
+    DEVICE = CONFIG['model_settings']['device']
+    MAX_TEXT_LENGTH = CONFIG['model_settings']['max_text_length']
+    
     # Setup logging
     logger = setup_logging()
     start_time = time.time()
-    parser = argparse.ArgumentParser(description='Optimized evaluation script for text generation')
-    parser.add_argument('--evaluate', choices=['real', 'synthetic', 'both'], default='real',
-                        help='Which datasets to evaluate. Default: real (CNN/DailyMail)')
-    parser.add_argument('--real-file', type=str, default=None, help='Path to local real data file (CSV/JSON)')
-    parser.add_argument('--synthetic-file', type=str, default=None, help='Path to local synthetic data file (CSV/JSON)')
-    parser.add_argument('--num-samples', type=int, default=None, help='Number of samples to use (-1 for all)')
-    parser.add_argument('--batch-size', type=int, default=None, help='Batch size for processing')
-    args = parser.parse_args()
-
-    # Override module-level defaults only if provided to avoid 'global' before use errors
-    if args.num_samples is not None:
-        globals()['NUM_SAMPLES'] = args.num_samples
-    if args.batch_size is not None:
-        globals()['BATCH_SIZE'] = args.batch_size
 
     try:
         logger.info("Starting evaluation pipeline...")
