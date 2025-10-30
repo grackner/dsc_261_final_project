@@ -1,0 +1,378 @@
+"""
+Synthetic Data Quality Evaluation Module
+
+Implements separate functions for the following metrics:
+- **Perplexity**: Uses OPT‑125m (via `AutoModelForCausalLM`).
+- **Wasserstein Distance**: Sliced Wasserstein on OPT embeddings.
+- **Classification**: Classifies real vs. synthetic using `LogisticRegressionCV` (solver='saga') with cross‑validation.
+- **Statistical Properties**: Measures avg_len_tokens, std_len_tokens, avg_len_chars, ttr, and hapax_ratio.
+
+Other notes:
+- **Tokenization**: Always uses `facebook/opt-125m`'s fast tokenizer.
+- **Embeddings**: Mean‑pooled last hidden states from OPT‑125m (via `AutoModel`).
+
+Example (notebook):
+
+    import numpy as np, pandas as pd
+    from eval_funcs import (
+        perplexity_for_corpora,
+        wasserstein_distance_embeddings,
+        classify_real_vs_synth,
+        compute_stat_properties,
+        compare_stat_properties,
+        compute_opt_embeddings,
+    )
+
+    real  = df_real["article"].values      # ndarray/Series/list of strings
+    synth = df_synth["article"].values
+
+    # Perplexity (corpus-level per set)
+    ppl = perplexity_for_corpora(real, synth, batch_size=8, max_length=1024)
+
+    # Wasserstein on embeddings
+    w = wasserstein_distance_embeddings(real, synth, n_projections=128)
+
+    # Classification with LogisticRegressionCV(saga)
+    clf_res = classify_real_vs_synth(real, synth, cv=5)
+
+    # Stats (tokenized with OPT)
+    stats = compare_stat_properties(real, synth)
+
+    # Optional: reuse embeddings across metrics
+    Er = compute_opt_embeddings(real)
+    Es = compute_opt_embeddings(synth)
+
+"""
+from __future__ import annotations
+
+from functools import lru_cache
+from typing import Iterable, List, Dict, Tuple, Union
+
+import numpy as np
+import pandas as pd
+
+TextArray = Union[pd.Series, np.ndarray, List[str]]
+
+# -----------------------------------------------------------------------------
+# Utilities: tokenizer/model caches and simple helpers
+# -----------------------------------------------------------------------------
+
+def _to_list(texts: TextArray) -> List[str]:
+    """Accept pd.Series, np.ndarray, or list[str] and return a Python list[str]."""
+    if isinstance(texts, pd.Series):
+        return texts.tolist()
+    if isinstance(texts, np.ndarray):
+        return texts.tolist()
+    if isinstance(texts, list):
+        return texts
+    if isinstance(texts, Iterable):
+        return list(texts)
+    raise TypeError("Expected pandas.Series, numpy.ndarray, list[str], or iterable of strings.")
+
+
+@lru_cache(maxsize=1)
+def _get_opt_tokenizer():
+    from transformers import AutoTokenizer
+    tok = AutoTokenizer.from_pretrained("facebook/opt-125m", use_fast=True)
+    if tok.pad_token is None:
+        tok.pad_token = tok.eos_token
+    tok.padding_side = "right"
+    return tok
+
+
+@lru_cache(maxsize=1)
+def _get_opt_lm_model():
+    import torch
+    from transformers import AutoModelForCausalLM
+    model = AutoModelForCausalLM.from_pretrained("facebook/opt-125m")
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model.to(device)
+    model.eval()
+    return model, device
+
+
+@lru_cache(maxsize=1)
+def _get_opt_base_model():
+    import torch
+    from transformers import AutoModel
+    model = AutoModel.from_pretrained("facebook/opt-125m")
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model.to(device)
+    model.eval()
+    return model, device
+
+
+def _batch_encode(texts: List[str], max_length: int) -> dict:
+    tok = _get_opt_tokenizer()
+    return tok(
+        texts,
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+        max_length=max_length,
+    )
+
+
+def _mean_pool(last_hidden_state, attention_mask):
+    """Mean pool over the sequence length, masking pads."""
+    import torch
+    mask = attention_mask.unsqueeze(-1).type_as(last_hidden_state)
+    summed = (last_hidden_state * mask).sum(dim=1)
+    counts = mask.sum(dim=1).clamp(min=1)
+    return summed / counts
+
+
+# -----------------------------------------------------------------------------
+# Statistical properties (using OPT tokenizer)
+# -----------------------------------------------------------------------------
+
+def compute_stat_properties(texts: TextArray, max_length: int = 1024) -> Dict[str, float]:
+    """Corpus statistics with OPT tokenization.
+
+    Returns:
+        avg_len_tokens, std_len_tokens, avg_len_chars, ttr, hapax_ratio
+    """
+    docs = _to_list(texts)
+    if len(docs) == 0:
+        return {
+            'avg_len_tokens': 0.0,
+            'std_len_tokens': 0.0,
+            'avg_len_chars': 0.0,
+            'ttr': 0.0,
+            'hapax_ratio': 0.0,
+        }
+
+    import torch
+    enc = _batch_encode(docs, max_length=max_length)
+    input_ids = enc["input_ids"]  # (B, L)
+    attn = enc["attention_mask"]  # (B, L)
+
+    lengths = attn.sum(dim=1).to(dtype=torch.float32).cpu().numpy()
+    avg_len_tokens = float(lengths.mean())
+    std_len_tokens = float(lengths.std())
+    avg_len_chars = float(np.mean([len(t) for t in docs]))
+
+    masked_ids = input_ids.masked_select(attn.bool()).cpu().numpy()
+    if masked_ids.size == 0:
+        ttr = 0.0
+        hapax_ratio = 0.0
+    else:
+        unique, counts = np.unique(masked_ids, return_counts=True)
+        ttr = float(len(unique) / masked_ids.size)
+        hapax_ratio = float((counts == 1).sum() / len(unique))
+
+    return {
+        'avg_len_tokens': avg_len_tokens,
+        'std_len_tokens': std_len_tokens,
+        'avg_len_chars': avg_len_chars,
+        'ttr': ttr,
+        'hapax_ratio': hapax_ratio,
+    }
+
+
+def compare_stat_properties(real_texts: TextArray, synth_texts: TextArray, max_length: int = 1024) -> Dict[str, Dict[str, float]]:
+    """Side‑by‑side stats for real and synthetic corpora."""
+    return {
+        'real': compute_stat_properties(real_texts, max_length=max_length),
+        'synthetic': compute_stat_properties(synth_texts, max_length=max_length),
+    }
+
+
+# -----------------------------------------------------------------------------
+# Perplexity with OPT‑125m
+# -----------------------------------------------------------------------------
+
+def _batch_loss(input_ids, attention_mask) -> Tuple[float, int]:
+    import torch
+    model, device = _get_opt_lm_model()
+    input_ids = input_ids.to(device)
+    attention_mask = attention_mask.to(device)
+    labels = input_ids.clone()
+    labels[attention_mask == 0] = -100
+    with torch.no_grad():
+        out = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+        mean_nll = float(out.loss.detach().cpu().item())
+    n_tokens = int((labels != -100).sum().item())
+    total_nll = mean_nll * n_tokens
+    return total_nll, n_tokens
+
+
+def perplexity_for_corpora(
+    real_texts: TextArray,
+    synth_texts: TextArray,
+    batch_size: int = 8,
+    max_length: int = 1024,
+) -> Dict[str, Dict[str, float]]:
+    """Compute **corpus‑level** perplexity for each corpus using OPT‑125m.
+
+    Implementation is intentionally simple: truncate each doc to `max_length`,
+    pad within batch, compute NLL and aggregate over tokens per corpus.
+    Returns: { 'real': {'corpus_ppl': ...}, 'synthetic': {'corpus_ppl': ...} }
+    """
+    real_docs = _to_list(real_texts)
+    synth_docs = _to_list(synth_texts)
+
+    def _corpus_ppl(docs: List[str]) -> float:
+        if len(docs) == 0:
+            return 0.0
+        total_nll = 0.0
+        total_tokens = 0
+        for i in range(0, len(docs), batch_size):
+            batch = docs[i:i+batch_size]
+            enc = _batch_encode(batch, max_length=max_length)
+            nll, ntok = _batch_loss(enc["input_ids"], enc["attention_mask"])  # sums across batch
+            total_nll += nll
+            total_tokens += ntok
+        return float(np.exp(total_nll / total_tokens)) if total_tokens else 0.0
+
+    return {
+        'real': {'corpus_ppl': _corpus_ppl(real_docs)},
+        'synthetic': {'corpus_ppl': _corpus_ppl(synth_docs)},
+    }
+
+
+# -----------------------------------------------------------------------------
+# OPT embeddings. Exposed for reuse.
+# -----------------------------------------------------------------------------
+
+def compute_opt_embeddings(texts: TextArray, batch_size: int = 8, max_length: int = 512) -> np.ndarray:
+    """Return OPT‑125m mean‑pooled embeddings for each text as an ndarray (N, H).
+    Truncates to `max_length` tokens for simplicity.
+    """
+    import torch
+    from torch.utils.data import DataLoader
+
+    docs = _to_list(texts)
+    if len(docs) == 0:
+        return np.zeros((0, 768), dtype=np.float32)  # OPT‑125m hidden size
+
+    model, device = _get_opt_base_model()
+
+    class _Dataset:
+        def __init__(self, xs): self.xs = xs
+        def __len__(self): return len(self.xs)
+        def __getitem__(self, idx): return self.xs[idx]
+
+    def _collate(batch_texts: List[str]):
+        return _batch_encode(batch_texts, max_length=max_length)
+
+    dl = DataLoader(_Dataset(docs), batch_size=batch_size, shuffle=False, collate_fn=_collate)
+
+    outs = []
+    with torch.no_grad():
+        for enc in dl:
+            input_ids = enc["input_ids"].to(device)
+            attn = enc["attention_mask"].to(device)
+            out = model(input_ids=input_ids, attention_mask=attn, return_dict=True)
+            pooled = _mean_pool(out.last_hidden_state, attn)  # (B, H)
+            outs.append(pooled.detach().cpu().numpy())
+    return np.vstack(outs)
+
+
+# -----------------------------------------------------------------------------
+# Sliced Wasserstein distance on OPT embeddings
+# -----------------------------------------------------------------------------
+
+def wasserstein_distance_embeddings(
+    real_texts: TextArray,
+    synth_texts: TextArray,
+    n_projections: int = 128,
+    batch_size: int = 8,
+    max_length: int = 512,
+    seed: int = 42,
+) -> Dict[str, float | List[float]]:
+    """Compute sliced Wasserstein distance between embedding sets.
+
+    1) Embed docs via OPT‑125m mean‑pooling
+    2) Draw `n_projections` random unit vectors u
+    3) Project both sets and compute 1‑D Wasserstein distance per projection
+    4) Return average and the list
+    """
+    from scipy.stats import wasserstein_distance
+
+    Er = compute_opt_embeddings(real_texts, batch_size=batch_size, max_length=max_length)
+    Es = compute_opt_embeddings(synth_texts, batch_size=batch_size, max_length=max_length)
+    if Er.shape[0] == 0 or Es.shape[0] == 0:
+        return {'mean_distance': 0.0, 'distances': []}
+
+    rng = np.random.default_rng(seed)
+    d = Er.shape[1]
+    dists = []
+    for _ in range(n_projections):
+        u = rng.normal(size=(d, 1))
+        u /= np.linalg.norm(u) + 1e-12
+        r_proj = Er @ u
+        s_proj = Es @ u
+        dists.append(float(wasserstein_distance(r_proj.ravel(), s_proj.ravel())))
+
+    return {'mean_distance': float(np.mean(dists)), 'distances': dists}
+
+
+# -----------------------------------------------------------------------------
+# Classification (real vs synthetic) using LogisticRegressionCV(saga)
+# -----------------------------------------------------------------------------
+
+def classify_real_vs_synth(
+    real_texts: TextArray,
+    synth_texts: TextArray,
+    test_size: float = 0.2,
+    batch_size: int = 8,
+    max_length: int = 512,
+    cv: int = 5,
+    Cs: Tuple[float, ...] = (0.1, 0.5, 1.0, 2.0, 5.0),
+    seed: int = 42,
+) -> Dict[str, object]:
+    """Train a light classifier on OPT embeddings with cross‑validated LogisticRegression(saga).
+
+    Returns:
+      - 'metrics': accuracy, macro_f1, roc_auc
+      - 'report': sklearn classification_report (dict)
+      - 'embeddings_shape': (N, H)
+      - 'classifier': fitted sklearn Pipeline (StandardScaler + LogisticRegressionCV)
+    """
+    from sklearn.model_selection import train_test_split
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.pipeline import make_pipeline
+    from sklearn.linear_model import LogisticRegressionCV
+    from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, classification_report
+
+    Er = compute_opt_embeddings(real_texts, batch_size=batch_size, max_length=max_length)
+    Es = compute_opt_embeddings(synth_texts, batch_size=batch_size, max_length=max_length)
+
+    if Er.shape[0] == 0 or Es.shape[0] == 0:
+        return {'metrics': {}, 'report': {}, 'embeddings_shape': (0, 0)}
+
+    X = np.vstack([Er, Es])
+    y = np.array([0] * Er.shape[0] + [1] * Es.shape[0])
+
+    Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=test_size, random_state=seed, stratify=y)
+
+    lr = LogisticRegressionCV(
+        solver='saga',
+        penalty='l2',
+        Cs=list(Cs),
+        cv=cv,
+        scoring='roc_auc',
+        max_iter=5000,
+        n_jobs=-1,
+        refit=True,
+    )
+    clf = make_pipeline(StandardScaler(), lr)
+    clf.fit(Xtr, ytr)
+
+    yhat = clf.predict(Xte)
+    proba = clf.predict_proba(Xte)[:, 1]
+
+    metrics = {
+        'accuracy': float(accuracy_score(yte, yhat)),
+        'macro_f1': float(f1_score(yte, yhat, average='macro')),
+        'roc_auc': float(roc_auc_score(yte, proba)),
+    }
+    report = classification_report(yte, yhat, target_names=['real', 'synthetic'], output_dict=True)
+
+    return {
+        'metrics': metrics,
+        'report': report,
+        'embeddings_shape': (int(X.shape[0]), int(X.shape[1])),
+        'classifier': clf,
+    }
