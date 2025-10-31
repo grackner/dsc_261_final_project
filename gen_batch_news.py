@@ -24,7 +24,7 @@ HIGHLIGHTS FORMAT:
 Generate both the full article and highlights. Ensure the content reflects real-world news reporting style but is entirely fictional.
 """.strip()
 
-def main(n=5, out_dir="Mistral 7B Data Generations"):
+def main(n=5, out_dir="Mistral 7B Data Generations origina"):
     out_path = Path(out_dir)
     out_path.mkdir(parents=True, exist_ok=True)
 
