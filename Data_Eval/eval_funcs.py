@@ -126,7 +126,7 @@ def _mean_pool(last_hidden_state, attention_mask):
 # Statistical properties (using OPT tokenizer)
 # -----------------------------------------------------------------------------
 
-def compute_stat_properties(texts: TextArray, max_length: int = 1024) -> Dict[str, float]:
+def compute_stat_properties(texts: TextArray, max_length: int = 2048) -> Dict[str, float]:
     """Corpus statistics with OPT tokenization.
 
     Returns:
@@ -170,7 +170,7 @@ def compute_stat_properties(texts: TextArray, max_length: int = 1024) -> Dict[st
     }
 
 
-def compare_stat_properties(real_texts: TextArray, synth_texts: TextArray, max_length: int = 1024) -> Dict[str, Dict[str, float]]:
+def compare_stat_properties(real_texts: TextArray, synth_texts: TextArray, max_length: int = 2048) -> Dict[str, Dict[str, float]]:
     """Side‑by‑side stats for real and synthetic corpora."""
     return {
         'real': compute_stat_properties(real_texts, max_length=max_length),
@@ -201,7 +201,7 @@ def perplexity_for_corpora(
     real_texts: TextArray,
     synth_texts: TextArray,
     batch_size: int = 8,
-    max_length: int = 1024,
+    max_length: int = 2048,
 ) -> Dict[str, Dict[str, float]]:
     """Compute **corpus‑level** perplexity for each corpus using OPT‑125m.
 
@@ -217,7 +217,11 @@ def perplexity_for_corpora(
             return 0.0
         total_nll = 0.0
         total_tokens = 0
+        next_verbose = 0.1
         for i in range(0, len(docs), batch_size):
+            if i/len(docs) >= next_verbose:
+                print(f"Done with {100*(i)/len(docs)}% of the computation.")
+                next_verbose += 0.1
             batch = docs[i:i+batch_size]
             enc = _batch_encode(batch, max_length=max_length)
             nll, ntok = _batch_loss(enc["input_ids"], enc["attention_mask"])  # sums across batch
@@ -235,7 +239,7 @@ def perplexity_for_corpora(
 # OPT embeddings. Exposed for reuse.
 # -----------------------------------------------------------------------------
 
-def compute_opt_embeddings(texts: TextArray, batch_size: int = 8, max_length: int = 512) -> np.ndarray:
+def compute_opt_embeddings(texts: TextArray, batch_size: int = 8, max_length: int = 2048) -> np.ndarray:
     """Return OPT‑125m mean‑pooled embeddings for each text as an ndarray (N, H).
     Truncates to `max_length` tokens for simplicity.
     """
@@ -278,7 +282,7 @@ def wasserstein_distance_embeddings(
     synth_texts: TextArray,
     n_projections: int = 128,
     batch_size: int = 8,
-    max_length: int = 512,
+    max_length: int = 2048,
     seed: int = 42,
 ) -> Dict[str, float | List[float]]:
     """Compute sliced Wasserstein distance between embedding sets.
@@ -317,7 +321,7 @@ def classify_real_vs_synth(
     synth_texts: TextArray,
     test_size: float = 0.2,
     batch_size: int = 8,
-    max_length: int = 512,
+    max_length: int = 2048,
     cv: int = 5,
     Cs: Tuple[float, ...] = (0.1, 0.5, 1.0, 2.0, 5.0),
     seed: int = 42,
