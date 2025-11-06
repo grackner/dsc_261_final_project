@@ -19,7 +19,7 @@ def load_model_and_tokenizer(model_name):
     elif model_name.lower() == "phi":
         model_id = "microsoft/Phi-3-mini-4k-instruct"
         tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
-        model = AutoModelForCausalLM.from_pretrained(model_id, trust_remote_code=True, dtype='float16')
+        model = AutoModelForCausalLM.from_pretrained(model_id, trust_remote_code=True, attn_implementation="flash_attention_2", dtype='float16')
         gemma_tag = False  # phi expects plain strings
     #TODO: add line for tinyllama (maybe?)
     else:
@@ -113,8 +113,6 @@ def main():
     total_time = 0
 
     for i in range(args.n//args.batch_size):
-        df.loc[i, "uuid"] = str(uuid.uuid4())
-
         start_time = time.perf_counter()
         responses, chosen_topics = generate_article(tokenizer, model, topics, args.batch_size, gemma_tag)
         end_time = time.perf_counter()
@@ -125,6 +123,7 @@ def main():
 
         #TODO: clean up process of adding articles to df
         for j in range(args.batch_size):
+            df.loc[i * args.batch_size + j, "uuid"] = str(uuid.uuid4())
             df.loc[i * args.batch_size + j, "topic"] = chosen_topics[j]
             df.loc[i * args.batch_size + j, "generated_article"] = responses[j]
 
