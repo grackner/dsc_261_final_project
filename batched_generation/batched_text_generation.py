@@ -14,7 +14,7 @@ def load_model_and_tokenizer(model_name):
     if model_name.lower() == "gemma":
         model_id = "google/gemma-2-2b-it"
         tokenizer = AutoTokenizer.from_pretrained(model_id)
-        model = AutoModelForCausalLM.from_pretrained(model_id)
+        model = AutoModelForCausalLM.from_pretrained(model_id, attn_implementation="flash_attention_2", dtype=torch.bfloat16)
         gemma_tag = True  # use for batching of prompts: gemma expects list-of-dicts
     elif model_name.lower() == "phi":
         model_id = "microsoft/Phi-3-mini-4k-instruct"
