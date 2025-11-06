@@ -7,3 +7,9 @@ Files:
    - displays synthetic data generated
 5. gen_batch_news.py - Python file running Mistral 7B to generate synthetic data
 6. Mistral 7B Data Generations - .txt files with Mistral 7B generations
+
+New:
+1. batched_generation folder contains .py file to run batched generation of articles
+   - Gemma: run `python batched_text_generation.py` (~2.5 hours to generate 12k articles)
+   - Phi: run `python batched_text_generation.py --model phi --output phi_outputs.csv`
+   - can also specify total articles to generate with  `--n` and batch size with `--batch_size`
