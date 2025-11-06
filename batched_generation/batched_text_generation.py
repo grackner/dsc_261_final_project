@@ -15,10 +15,12 @@ def load_model_and_tokenizer(model_name):
         model_id = "google/gemma-2-2b-it"
         tokenizer = AutoTokenizer.from_pretrained(model_id)
         model = AutoModelForCausalLM.from_pretrained(model_id)
+        gemma_tag = True  # use for batching of prompts: gemma expects list-of-dicts
     elif model_name.lower() == "phi":
         model_id = "microsoft/Phi-3-mini-4k-instruct"
         tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
         model = AutoModelForCausalLM.from_pretrained(model_id, trust_remote_code=True, dtype='float16')
+        gemma_tag = False  # phi expects plain strings
     #TODO: add line for tinyllama (maybe?)
     else:
         raise ValueError(f"Unknown model type: {model_name}")
@@ -26,7 +28,7 @@ def load_model_and_tokenizer(model_name):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
-    return tokenizer, model
+    return tokenizer, model, gemma_tag
 
 
 topics = [
@@ -66,12 +68,13 @@ def generate_prompts(topics, batch_size):
     return prompts, chosen_topics
 
 
-def generate_article(tokenizer, model, topics, batch_size):
+def generate_article(tokenizer, model, topics, batch_size, gemma_tag):
     prompts, chosen_topics = generate_prompts(topics, batch_size)
-    messages = [
-        [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
-        for prompt in prompts
-    ]
+    
+    if gemma_tag: #gemma
+        messages = [[{"role": "user", "content": [{"type": "text", "text": prompt}]}] for prompt in prompts]
+    else: #phi
+        messages = [[{"role": "user", "content": prompt}] for prompt in prompts]
 
     template_messages = tokenizer.apply_chat_template(
         messages,
@@ -81,13 +84,17 @@ def generate_article(tokenizer, model, topics, batch_size):
     inputs = tokenizer(template_messages, return_tensors="pt", padding=True).to(model.device)
 
     outputs = model.generate(
-        **inputs, max_new_tokens=750, do_sample=True, temperature=0.9, top_p=0.95, top_k=50
+        **inputs, 
+        max_new_tokens=750, 
+        do_sample=True, 
+        temperature=0.9, 
+        top_p=0.95, 
+        top_k=50, 
+        use_cache=True if gemma_tag else False
     )
 
-    responses = [
-        tokenizer.decode(outputs[i][inputs["input_ids"].shape[-1]:], skip_special_tokens=True)
-        for i in range(batch_size)
-    ]
+    responses = [tokenizer.decode(outputs[i][inputs["input_ids"].shape[-1]:], skip_special_tokens=True) 
+        for i in range(batch_size)] #set skip_special_tokens=True to avoid padding tokens in generated articles
     return responses, chosen_topics
 
 
@@ -100,7 +107,7 @@ def main():
     parser.add_argument("--batch_size", type=int, default=50, help="Batch size for generation")
     args = parser.parse_args()
 
-    tokenizer, model = load_model_and_tokenizer(args.model)
+    tokenizer, model, gemma_tag = load_model_and_tokenizer(args.model)
 
     df = pd.DataFrame(columns=["uuid", "topic", "generated_article"])
     total_time = 0
@@ -109,7 +116,7 @@ def main():
         df.loc[i, "uuid"] = str(uuid.uuid4())
 
         start_time = time.perf_counter()
-        responses, chosen_topics = generate_article(tokenizer, model, topics, args.batch_size)
+        responses, chosen_topics = generate_article(tokenizer, model, topics, args.batch_size, gemma_tag)
         end_time = time.perf_counter()
 
         #TODO: clean up timing functionality
