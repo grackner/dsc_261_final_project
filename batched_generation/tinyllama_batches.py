@@ -109,29 +109,34 @@ def main():
     parser.add_argument("--output", type=str, default="outputs.csv", help="Path to save the generated CSV file")
     parser.add_argument("--n", type=int, default=10, help="Total number of generated articles")
     parser.add_argument("--batch_size", type=int, default=2, help="Batch size for generation")
+    parser.add_argument("--max_workers", type=int, default=8, help="Number of parallel workers")
     args = parser.parse_args()
 
-    df = pd.DataFrame(columns=["uuid", "topic", "generated_article"])
+    all_results = []
     total_time = 0
 
     for i in range(args.n // args.batch_size):
         start_time = time.perf_counter()
-        responses, chosen_topics = generate_article(topics, args.batch_size)
+        responses, chosen_topics = generate_article(topics, args.batch_size, max_workers=args.max_workers)
         end_time = time.perf_counter()
 
         elapsed_time = end_time - start_time
         total_time += elapsed_time
 
         for j in range(args.batch_size):
-            df.loc[i * args.batch_size + j, "uuid"] = str(uuid.uuid4())
-            df.loc[i * args.batch_size + j, "topic"] = chosen_topics[j]
-            df.loc[i * args.batch_size + j, "generated_article"] = responses[j]
+            all_results.append({
+                "uuid": str(uuid.uuid4()),
+                "topic": chosen_topics[j],
+                "generated_article": responses[j]
+            })
 
         if i % 2 == 0:
             print(f"Batch {i}, time so far: {total_time:.2f}s")
-            df.to_csv(args.output, index=False)
+
+            pd.DataFrame(all_results).to_csv(args.output, index=False)
 
     print("Generation complete. Total time:", total_time)
+    df = pd.DataFrame(all_results)
     df.to_csv(args.output, index=False)
 
 
