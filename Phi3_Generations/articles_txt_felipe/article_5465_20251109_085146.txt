@@ -1,0 +1,17 @@
+Topic: Science - Medicine
+
+In a groundbrestatic study recently concluded at Johns Hopkins University School of Medicine in Baltimore, researchers have developed an AI that could revolutionize cancer treatment by accurately predicting patient responses to various chemotherapy drugs within hours. This remarkable achievement has the potential not only to improve survival rates but also significantly reduce unnecessary side effects for countless patients facing battles with different forms of cancers, particularly aggressive types like lung and pancreatic cancer where treatment options are historically limited.
+
+The study involved a diverse group of 150 participants representing multiple demographics who were diagnosed with stage II-IV metastasized melanoma or breast cancer at the Baltimore Oncology Center between March and June this year, as reported by Dr. Alice Martinson, one of the lead researchers in charge of collecting data from patients' genetic information coupled with AI algorithms to provide custom treatment plans tailored for each individual patient within 24 hours after admission into the cancer unit (CNN).
+
+"This is a paradigm shift," Dr. Martinson said during her presentation at an international oncology conference last weekend, "We have been relying mostly on trial and error methodologies to administer chemotherapy for years now—it's time we embrace technology." In the previous approach where doctors had limited information about each patient’s tumor genetics due to slow sequencing methods or unavailability of results, this fast turn-around could change that.
+
+For patients like 34-year old James Robinson who has been fighting for years with an aggressive form of lung cancer not responding well to conventional treatments but whose situation seemed hopeful after the test showed a positive response towards chemotherapy drugs Dabrafenib and Trametinib, it's indeed life changing.
+
+"It was like being given a new lease on my life," James said tearfully during an interview at his home in Towson last weekend after receiving the first round of treatment based on AI predictions earlier this month as reported by Baltimore Daily Mail (DailyMail). "The doctors had tried everything, but nothing was working until now—my family and I feel like we've been given a miracle."
+
+Researchers are hoping to extend their study nationwide within the next year with larger sample sizes while other institutes around the world start similar trials using AI for cancer treatments. Dr. Martinson stressed, "This is just one example of how technology can help us save lives—we still have a long way ahead but I believe we're on the right path."
+
+As medical professionals and researchers prepare to roll out this new approach nationwide by next year or sooner if successful in further clinical trials, patients like James Robinson are hopeful for what lies ahead. "No one should ever have to go through a nightmare of failed treatments—it's not fair," says Robinson as he grips his son’s hand firmly while waiting anxiously outside the Johns Hopkins Oncology Center, where next steps will begin once more clinical trials are complete. "We need this now."
+
+With rapid advancements in precision medicine and genetic technology on one side of things; AI predictions provide a promising alternative solution which could potentially end up changing how cancer treatment is administered not only for patients like James Robinson but also countless others nationwide with the hope that we are stepping closer towards more effective

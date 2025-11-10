@@ -1,0 +1,13 @@
+Topic: Business - Tech
+
+A data breach at major financial tech company PayTech has exposed personal information of approximately five million users since January this year. The leak was discovered when a hacker alerted the cybersecurity team about suspicious activity on their forums and support pages, leading to an immediate investigation by security experts hired specifically for that purpose from Silicon Shield Inc.
+
+The breach occurred between March 1st to May 15th of this year when a flaw in PayTech'in encryption software allowed unauthorized access into customer databases containing names, email addresses and encrypted passwords, as reported by the IT Security Magazine on June 2nd. The extent of damage may be significant given that hackers have had time to harvest data before it was shut down.
+
+PayTech CEO John Doe expressed shock at learning about the breach but also reassured customers and shareholders in a statement released today, “We deeply regret this incident occurring as we work tirelessly with leading cybersecurity firms to resolve any potential threat.” The company has since set up its dedicated hotline for customer service regarding their security concerns.
+
+“If I were the hacker myself,” mused ex-hacker and industry consultant Jane Smith, “I would probably have made off with a few extra bits of data before this was all shut down.” She added that although not critical personally, such breaches often create an environment ripe for phishing attacks or identity fraud.
+
+Further investigations are ongoing as the company continues to tighten its security protocols and review system vulnerabilities with their partnered firm Global Tech Solutions. Affected users have been advised by PayTech's official Twitter handle, “Always stay vigilant online.” Users will be offered free credit monitoring services for six months from today as a gesture of goodwill towards those affected in the breach incident reported earlier this month at an unspecified tech firm.
+
+Meanwhile industry experts are reminding users to regularly update their passwords, and watch out for any unusual emails or messages purportedly linked with PayTech on account of these recent data mishaps across several platforms worldwide. As the dust begins to settle post this incident, many see it as a wake-up call in an era where cybercrime has become increasingly commonplace and sophisticated.

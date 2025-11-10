@@ -1,0 +1,20 @@
+Topic: Business - Tech
+
+A massive data breach has been reported affecting millions of customers across multiple technology firms headquartered in Silicon Valley this weekend. The leak was first detected on Friday evening when cybersecurity teams working for the tech giants noticed irregular traffic patterns and suspicious database activity coming from their servers, all based out of companies such as Cybertech Solutions Inc., InteliSoft Systems LLC, and DigitalFrontier Technologies Corp.
+
+Customers were notified late Saturday about unauthorized access to personal data including names, email addresses, physical locations, phone numbers, purchase histories, and financial records dating back as early as January 2018. Although the extent of sensitive information exposed has yet to be fully understood, affected individuals are being advised by cybersecurity firms that credit card details could also have been compromised in some cases according to statements made yesterday.
+
+Cybertech CEO Jennifer Smith addressed reporters today with a sense of urgency about the situation: "We take this matter very seriously and we regret any inconvenience caused by these breaches," she said during her press conference at Cybertech headquarters in Silicon Valley, California on Monday. 
+
+Smith went onto stress that their internal investigation into how hackers managed to gain unautener access despite stringent cybersecurity protocols is still underway but they believe the intruders exploited a zero-day vulnerability for which no patch was available at the time of attack, leading to this unfortunate incident.
+
+"We are working relentlessly on identifying and fixing these security lapses," added Chief Information Officer James Miller in another statement made yesterday during an emergency meeting with other tech executives from affected firms held virtually over conference calls. "Our top priority is safeguarding our user's privacy."
+
+Experts have weighed in on the magnitude of this cybersecurity crisis, and while admitting that it’s not uncommon for such breaches to occur due to escalating sophistication of hacking tools used by malicious entities globally. 
+"Businesses are always racing against time trying to patch security loopholes before they get exploited," said Dr. Laura Peterson, a leading cybersecurity expert at Stanford University and former White House National Security Advisor under President Barack Obama who joined the conference call yesterday alongside other top industry leaders like Microsoft's VP of Information Technology Richard Grant to discuss collaborative efforts on mitigating future risks associated with data breaches.
+
+She went further to state that despite advances in technology, "Human error remains a constant risk and it’s important for employees at all levels within an organization - from top executives down - be aware of phishing attempts or other tactics hackers use." 
+
+At present there is no direct evidence linking the breach to foreign cyber actors. However officials have stressed that such threats are always a concern due in part to tensions between major global powers and their increasing reliance on digital infrastructure for both business operations as well as national security purposes, prompting calls from various governments around Silicon Valley urging tech companies within the region to further strengthen cybersecurity measures.
+
+As of today no arrests have been made but investigations continue with local law enforcement working closely alongside federal agencies such as FBI’s Cyber Division and Homeland Security's National Protection & Programming Directorate, while tech companies are also en

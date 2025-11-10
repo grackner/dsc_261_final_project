@@ -1,0 +1,17 @@
+Topic: Business - Tech
+
+A cybersecurity breach that hit major financial institutions across Wall Street has left New York City's banking sector on edge last Thursday evening, as per a report from the Federal Bureau of Investigation (FBI) and industry sources. In what is believed to be one of the most sophisticated digital heists in decades, hackers exploited vulnerabilities within payment systems at banks such as JPMorgan Chase, Goldman Sachs, Citigroup, Bank of America Merrill Lynch, Morgan Stanley, and Wells Fargo.
+
+Assets worth billions were reportedly compromised from the breach starting Thursday evening to early Friday morning across various locations in New York City including Times Square, Wall Street, Chinatown, Greenwich Village, Midtown Manhattan, and Harlem. The impact of this cyberattack has sent shockwaves through both local businesses as well as international markets with significant financial losses reported so far exceeding $100 million globally.
+
+In an interview yesterday at his office in FBI headquarters downtown, Director Christopher Wray expressed serious concerns about the escalating cyber threats facing U.S bank systems: “These attacks demonstrate just how vulnerable we are when it comes to our financial infrastructure," he said. "Our priority is not only bringing these criminals to justice but also safeguarding against future breaches."
+
+Experts say that this cyberattack appears reminiscent of the one experienced by Estonia in 2007 when hundreds of thousands were left without internet access for days. According to Tech industry insider, Daniel Dodd: "Although no physical damage was done here, these breaches still represent a major threat because they target people's trust and confidence - two things that cannot be quantified monetarily but have immense value."
+
+In response, federal authorities are working closely with affected companies to contain the situation as swiftly as possible. The SEC has imposed sanctions on those believed responsible for this heist while cybersecurity agencies continue their investigations into tracing back these attacks' roots and bringing them perpetrators to justice within an increasing timeline due to evolving tactics of digital criminals worldwide; it was stated yesterday by Deputy Assistant Director Rachel Thompson at the FBI: “We are doing everything in our power, but this kind of advanced crime is becoming more complex each day."
+
+Meanwhile, bank executives have been urging their customers to change passwords immediately while also reassuring them about taking necessary steps for improved security protocols. JPMorgan Chase CEO Jamie Dimon told reporters today: “This was not our fault and we regret any concerns or inconvenience caused by this unfortunate event."
+
+CNN NEWS NETWORK reports that while no arrests have been made yet, the financial industry remains vigilant as they navigate through these challenging times in cybersecurity. The FBI has asked banks to review and enhance their system security measures including multi-factor authentication procedures with an estimated timeline for recovery ranging from weeks to months ahead; this comes after bankers at affected institutions shared concerns about the vulnerability of digital infrastructure amid growing threats posed by organized cybercrime groups.
+
+In a statement issued today, Citigroup CEO Michael Corbat acknowledged: "This incident has made us rethink and redesign our security policies once again to ensure this doesn't happen

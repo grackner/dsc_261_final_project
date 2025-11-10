@@ -1,0 +1,17 @@
+Topic: Business - Tech
+
+In a shocking turn of events in Silicon Valley this past Monday evening, Tesla CEO Elon Musk was involved in an alleged attempt to hack into major automotin company General Motors' systems using his own electric vehicle’s autonomous software, authorities announced. This startling development comes as the tech and auto industries continue to be at the forefront of one another amidst ongoing concerns about cybersecurity within connected vehicles.
+
+Sources close to the investigation revealed that Tesla's Full Self-Driving (FSD) software, while still in beta testing phase for mass production models without autonomous capabilities yet sold as FSD enhancement option by Elon Musk himself since 2016, was being exploited. Authorities say a test vehicle equipped with the latest Tesla hardware and navigation maps had been remotely hacked into attempting to gain access to General Motors' proprietary data centers around Detroit for several hours on Friday night as part of an insider threat investigation following unusual traffic patterns detected in Michigan, USA.
+
+A spokesperson from the Department of Homeland Security (DHS) confirmed details about what they described as a "serious security breach." The DHS shared that Musk's personal vehicle was linked to 15 unauthorized access attempts made at GM-operated facilities located within Michigan throughout Friday night and early Saturday morning, which is considered an unprecedented level of cyber infiltration.
+
+"We are working closely with Tesla and other stakeholders across the industry to thoroughly investigate this incident," said a DHS spokesperson who asked not be named as they were only authorized to speak on background about investigations at that point. "As of now, there is no evidence suggesting any GM systems have been compromised."
+
+Experts say while Musk’s Tesla vehicles are some of the best-equipped with high speed internet access and connectivity capabilities in autonomous vehicle industry; this case demonstrates risks inherent to these advancements. “Autonomous driving technology is powerful, but it also makes us vulnerable if not managed properly,” said Dr. Lisa Parks, cybersecurity expert at a top-tier university who has studied the effects of connected technologies on safety and security in transportation systems for years now.
+
+Tesla released this statement: "We are taking all necessary steps to investigate any potential breach or misuse related to our technology." Meanwhile General Motors spokesman confirmed that company had immediately begun its internal investigation into the matter as well, saying it would not affect their vehicles on-road safety in Michigan.
+
+While Musk's intentions behind this alleged act remain unclear; sources say he has been under scrutiny for his public statements about self-driving technology and regulatory oversight since before these systems were legally available to the masses as per federal regulations that took effect in December 2016.
+
+The Federal Trade Commission (FTC) launched an investigation into Musk's Full Self Driving System last year over concerns about its safety, but no evidence of wrongdoing was found at time when FSD Beta testing began to roll out for consumers with special PIN codes since September 2019. The alleged attempt this week has now prompted an urgent new look into the security implications within autonomous vehicles and systems interconnectivity as per authorities in Detroit, Tes

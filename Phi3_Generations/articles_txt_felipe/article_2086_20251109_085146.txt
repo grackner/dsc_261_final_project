@@ -1,0 +1,17 @@
+Topic: Business - Tech
+
+In a major cybersecurity breach that has sent shockwaves through Silicon Valley this Thursday, tech giants Apple and Google have reported an extensive data leak affecting millions of users' personal information within the last month (March-April). The unautselfy exploit exposed sensitive details such as email addresses, physical locations, browsing habits across 20 different platforms.
+
+In a joint statement released Thursday morning, both companies expressed their deepest regret and pledged to investigate thoroughly while promising robust enhancements in data protection going forward. "We are deeply sorry for this breach that has affected our users," said Tim Cook of Apple. Google's head of security echoed similar sentiments with an additional note on increased scrutiny within their systems, assuring regular updates to stakeholders about the investigation process and progress towards resolving vulnerabilities.
+
+The leaked data primarily includes information from services like social media platforms (Facebook), search engines (Google Search), messaging apps (WhatsApp) alongside Apple's iCloud accounts and email servers, among others—resulting in a breach of privacy for millions nationwide with an estimated 2 million users directly affected.
+
+"With every click on your smartphone or use of our platform, we strive to safeguard your information from threats like this," said the CEO of WhatsApp during today's press conference where they promised a rigorous review and revamping of their encryption protocols as an immediate response. 
+
+Sources familiar with Apple's internal assessment suggest that despite not identifying any flaws within their security framework, some unidentified third-party exploit took advantage before it was remedied in the latest update rolled out last weekend (April). Meanwhile at Google headquarters on Thursday afternoon senior analyst Alex Mercer stated confidently during an interview: "We are taking decisive action to strengthen our defenses, but we must remember that perfection is unattainable. We will learn and adapt as quickly as threats evolve."
+
+Affected users have been advised by both companies' support centers over the past couple of days on ways to protect themselves from potential scams or misuse arising due to their compromised data, which in many cases involves resetting passwords across all services where they maintain an account. 
+
+Google and Apple share responsibility for some users who fell prey through links circulating online that purported to offer affected individuals help recovering stolen information—a classic phishing scam tactic exploiting such crises, warns cybersecurity expert Dr. Jane Smith from MIT's Computer Science and Artificial Intelligence Lab in Cambridge: "The psychological impact of these incidents on users can be quite severe if not managed well along with the technical fallout."
+
+As tech behemoths grapple to understand this sophisticated breach, lawmakers from Congress have convened a special session today (April 10) aiming at drafting more stringent data protection policies—signaling broader implications in the wake of increasingly common cybersecurity threats.

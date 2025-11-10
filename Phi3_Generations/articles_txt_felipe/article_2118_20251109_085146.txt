@@ -1,0 +1,17 @@
+Topic: Sports - Olympics
+
+In a shocking development at this year's Olympic Games in Tokyo, an international cyber-attack disrupted online streaming services during Tuesday night’thalf marathon event. The attack targeted the Olympics Broadcast Services (OBS), which is responsible for transmitting live coverage of events through various platforms including TV and digital services worldwide.
+
+In a statement released yesterday, OBS revealed that their systems were hit by sophisticated malware earlier in the evening at 8 p.m. local time on August 26th (Tuesday). The disruption lasted for approximately two hours before they managed to regain control and restore service back to all affected channels including those broadcasting live from Olympic Stadium, Yoyogi National Gymnasium, Fukushima Prefecture's Nishi-Iwama stadium.
+
+"It was an unfortunate situation that unfolded unexpectedly," said Chief Information Security Officer with OBS Michael Taylor during yesterday’s press conference in Tokyo Union Station along the Tokaido Line where officials and media gathered after hours of continuous troubleshooting efforts by a task force comprising cyber experts from various countries. "Our top priority has always been to provide uninterrupted, high-quality coverage for our audiences."
+
+"As an endurance athlete myself who understands the commitment and dedication required in marathons like these," said Olympic Committee spokesperson Hannah Choi at today's briefing held inside Tokyo National Stadium. "I can only imagine what this incident means for athletes competing tonight."
+
+The attack, believed to be coordinated from overseas due to its complexity and international reach according to leading cybersecurity firms like FireEye Inc., is currently under investigation by authorities across multiple jurisdictions including Japan's National Police Agency (NPA), United States Cyber Command (USCYBERCOM) as well as the FBI, UK's National Crime Agency(NCANews - Reuters reported on Tuesday that investigators traced malicious code back to Eastern European sources which may have been part of a broader campaign against major sporting events around this time.
+
+During yesterday’s briefing in Tokyo Union Station, Deputy Minister for Foreign Affairs Koji Tomihira stated his government would cooperate with the international community on investigating and responding to such attacks which he called an "economic war" that threatens global harmony: “As a nation hosting one of humanity's most prestigious sporting events, we understand our responsibilities as well."
+
+Olympic athletes competed without disruption on the track but several expressed concern about missing out on worldwide recognition from an audience unable to watch them compete due to streaming issues. "I was just trying my best in front of a packed stadium with friends and family cheering us," said local runner Hiroshi Tanaka, who finished fourth place at the half marathon yesterday evening before leaving for his next event scheduled today afternoon (August 27th).
+
+In response to this incident, OBS has since upgraded their systems implementing additional layers of security checks as well as increased monitoring efforts which they believe will prevent such attacks in future. "Our team is working round-the-clock with partners worldwide and I want everyone here today knowing that we have the best measures in place for your safety," assured Taylor during a press conference earlier this morning at Tokyo National Stadium where athletes are being prepped up

@@ -1,0 +1,15 @@
+Topic: Science - Life
+
+In a groundbreinating development on Thursday at Johns Hopkins University in Baltimore, Maryland, researchers have successfully used CRISPR gene-editing technology to cure the genetic condition of Duchenne muscular dystrophy (DMD) in mice. This represents an incredible leap towards potential treatment options for humans suffering from this life-threatening disease affecting approximately one out of every thirty boys born with DMD, most commonly diagnosed before age six and often resulting in a tragic early death by the time they reach their 20s due to heart complications.
+
+The team's lead investigator Dr. Laura Petersen states, "This is truly promising news for those affected not only here at home but around the world." With over forty million people living with DMD globally and no current cure available, this study opens up hope where there was little before it began in 2017 under the supervision of Prof. Edward Smith's lab.
+
+Professor John Davis, an expert geneticist not involved in the research but familiar with its methods said "It's about time we had a solution to DMD." He further added that while mice are never quite human and more testing is needed before moving on to clinical trials for humans; this study will certainly pave way forward.
+
+The genetic mutation responsible for Duchenne muscular dystrophy was pinpointed in the patients' DNA, where researchers then designed a specific guide RNA sequence that targeted and corrected the faulty gene using CRISPR-Cas9 technology - making it possible to produce functional dystrophin protein normally found only in healthy individuals.
+
+Patients with Duchenne muscular dystrophy usually experience progressive muscle weakness due to a mutation within their own genes that encodes for the vital and highly abundant structural proteins called dystonin (DMD gene). As this disease often appears in early childhood, it severely limits normal development as well.
+
+The team's findings were published on Wednesday in The New England Journal of Medicine which has endorsed the study for its rigorous scientific method and potential societal impact with Dr. Alice Williams a senior editor at NEJM stating "We are cautiously optimistic about these results." However, she cautions that extensive animal trials will be needed before proceeding to human clinical studies but notes there is currently no FDA-approved gene therapy for DMD patients in the United States.
+
+As patient advocacy groups eagerly await further developments from Johns Hopkins University's ongoing research, many hope that a potential treatment option could one day emerge to not only improve muscle function but also halt or reverse heart disease progression caused by Duchenne Muscular Dystrophy - transforming millions of lives affected worldwide.

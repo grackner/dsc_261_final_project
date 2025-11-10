@@ -1,0 +1,19 @@
+Topic: Science - Life
+
+In a groundbredevent this weekend in Paris on Saturday evening at approximately 7:00 PM local time, scientists from Sorbonne University successfully edited genes of the common fruit fly (Drosophila melanogaster) using CRISPR-Cas9 technology. The researchers believe their work could advance human gene therapy techniques by providing a simpler model for testing and development.
+
+Dr. Sophie Laurent, lead scientist on the project shared with CNN via email that they had hoped to demonstrate potential modifications in one day but encountered unexpected complexities when observing genetic variations across multiple generations of fruit flies: "The goal was ambitious – within 24 hours we wanted to see immediate results. However, gene expression and regulation take time as well."
+
+During the experiment that spanned three months from November last year until this month's end in March, more than a thousand specimens were monitored daily for changes resulting from CRISPR-Cas9 application on their genome sequence. The scientists used Drosophila melanogaster as it shares up to 60% of its DNA with humans and has been widely studied due to ease of manipulation, quick life cycle, among other factors – characteristics that make them a valuable subject for gene-editing studies aimed at understanding human diseases better.
+
+Despite the experiment's success in altering fruit fly genomes by targeting specific genes linked with eye color and wing shape, it has raised ethical concerns from various corners of society around potential implications should this technology be misused or become more widely accessible without proper safeguards being implemented globally. This comes amid growing discussions about gene editing in humans that gained traction after Chinese scientist He Jian made headlines worldwide back in 2018 when he claimed to have created the first genetically edited babies using CRISPR technology; though China has since denied his claims, citing possible fabrication of results.
+
+"Gene editing holds great promise for treating diseases caused by specific mutations," said Dr. Eric Thompson from Harvard Medical School who isn't directly involved in the Paris study but contributed some commentary on its significance and broader implications: "It could be transformative - think Alzheimer's or Huntington Disease treatments that target genetic predispositions."
+
+While acknowledging these benefits, researchers also express caution about moving too quickly into applying gene-editing techniques in humans without robust ethical considerations and strict regulations. Dr. Laurent commented to the Daily Mail via Skype: "Our hope is not for reckless experimentation but rather responsible science driven by thorough investigation with strong moral guidelines at every step."
+
+Several regulatory bodies across Europe continue their discussions on establishing a framework ensuring safe and ethical practices in gene-editing research. As countries like the United States also grapple with similar considerations, there is an increasing demand for clear policies to ensure transparency while fostering scientific advancements without compromising public safety or moral boundaries.
+
+The French National Assembly recently held a roundtable discussion on genetic engineering where Members of Parliament raised questions about oversight mechanisms in light of the Paris study's results: "We must strike a balance between innovation and caution to prevent misuse," said MP Jean-Pierre Martin, who believes stringent rules are necessary before expanding into human trials.
+
+While

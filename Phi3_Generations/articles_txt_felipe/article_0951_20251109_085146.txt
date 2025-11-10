@@ -1,0 +1,15 @@
+Topic: Business - Tech
+
+In a major cybersecurity incident at the nation's largest tech firm this past weekend, sensitive data from millions of accounts was potentially exposed to unautstatic users worldwide last Saturday according to company officials and industry analysts. The breach reportedly took place on March 23rd in California when an anonymous hacker exploited a flaw within the corporation's network security system.
+
+"We immediately launched our emergency response protocol as soon as we became aware of unauthorized access to certain segments of our data storage," said Jane Smith, Director of Public Relations for Tech Giant Inc., in an official statement released late Sunday night. "Our priority is the security and privacy of user information."
+
+Tech giant revealed that while financial details such as credit card numbers were not exposed during this breach due to our advanced encryption methods, personal contact lists could have been accessed along with some non-financial data like birthdates or email addresses. 
+
+A spokesperson for the company added in an interview on Monday morning: "We are continuously working tirelessly at strengthening security and taking immediate steps to address this issue." The firm has notified all potentially affected users through personalized emails prompting them to change their passwords immediately, but it is unclear how many accounts were accessed.
+
+The company's vulnerability was detected by the IT team on Sunday afternoon; however, reports began flooding in about unauthorized access as early as 2:15pm Pacific Time when an unusual surge of traffic started showing up from IP addresses not belonging to Tech Giant Inc.'s usual user base. The firm's chief information officer commented later that night on the unforeseen nature and scale of this cyber-attack, expressing his team’s commitment in resolving it as quickly as possible: "Our IT experts are working around the clock to find out exactly how we were breached. We take these matters very seriously."
+
+As for next steps, Tech Giant Inc.'s Chief Information Security Officer said they would work closely with federal law enforcement agencies and cybersecurity firms in a bid to track down the individuals responsible while improving their overall security measures going forward: "We are fully cooperating with authorities. Our focus is on securing our system, ensuring data safety for our users, and strengthening defenses against future threats." The firm will also provide free credit monitoring services to those affected as a precautionary measure while the situation remains unresolved until further notice.
+
+CNN has reached out to Tech Giant Inc. for additional comment on this story; we'll update accordingly if they respond in time.

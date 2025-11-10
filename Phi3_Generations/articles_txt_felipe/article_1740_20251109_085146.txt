@@ -1,0 +1,21 @@
+Topic: Tech - Innovative Cities
+
+A tech hub city in South Korea has just unveiled its latest innovation: a smart road that charges electric vehicles as they drive. The test project was officially launched today by the Seoul Metropolitan Government with plans to implement this technology across five key locations within the city over the next two years. It is hoped that if successful, it could reduce pollution and reliance on fossil fuels in one of Asia's most densely populated metropolitan areas.
+
+The Smart Road Initiative - a joint venture between leading tech companies including Samsung Electronics Co., Ltd., Hyundai Motor Group, LG Energy Solution (formerly known as GS Caltex), and local government officials - has been in development for the past five years at an undisclosed location within Seoul.
+
+"We have spent significant time developing a reliable technology to harness solar energy while also enabling dynamic electric vehicle charging," said Hyeon-Seok Park, Director of Samsung's Advanced Convergence Research Lab where much research into the Smart Road has been carried out in secrecy for several years.
+
+As vehicles drive over special pads embedded with piezoelectric crystals and solar panels within a 20-meter stretch along this test road, they simultaneously generate power by absorbing sunlight while also harvesting energy from pressure forces created when the vehicle travels above these surfaces at speeds of up to 50 kph.
+
+The collected electricity is stored in lithium-ion batteries built into a charging station adjacent to this stretch, with realtime monitoring being carried out by local authorities and tech companies participating through cameras connected directly onto the road surface itself via an interconnected network of fiber optics within the city's infrastructure.
+
+"Our ultimate goal is for every citizen in Seoul to have access to a free, sustainable way of transportation that doesn’t require them leaving their homes or contributing directly financially," said Kim Joon-soo, an official from City Hall who has been working closely on this project.
+
+Seoul Mayor Park Won-gon hailed the unveiling as "a significant step forward in our quest to become a world-leading smart city by harnessing advanced technology." He added that with continued investment and support for startups specializing in green energy, Seoul will not only improve its own infrastructure but also inspire surrounding cities within South Korea.
+
+In order to provide enough power required for continuous driving without recharging the EV battery itself - around 5 kWh per kilometer at speeds of up to 70 km/h according to estimates by local researchers and engineers working on this project; an estimated amount between six megawatts-hour (MWh) to ten MWh are required during peak hours. Seoul's municipal government believes that its power consumption can be sustainably met using locally available clean energy resources as the city is already home to four large solar farms and over 30 wind turbines along with numerous smaller-scale installations dispersed throughout various districts within South Korea’s capital.
+
+Several leading automobile manufacturers including Hyundai Motor, Kia Motors Company Ltd., as well as electric vehicle startups have shown interest in integrating their vehicles directly into this network of smart roads with plans to collaborate further on research and development work alongside Seoul Metropolitan Government's officials.
+
+"We are excited about the future possibilities that lie

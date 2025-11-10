@@ -1,0 +1,15 @@
+Topic: Science - Solutions
+
+In an unprecedented scientific breakthrough on Monday at Harvard University'enzyme research lab in Cambridge, a team of biochemists announced they have successfully engineered a novel enzyme that could revolutionize the treatment of genetic diseases such as cystic fibrosis. The artificially created protein has already shown promise in preclinical trials by effectively repairing damaged DNA sequences directly within human cells cultured on lab dishes, with further tests planned for animal models before any potential move to clinical testing phases next year.
+
+The project began last March when Dr. Elena Martinez and her team of researchers embarked upon the daunting task of bioengineering a custom enzyme capable of precisely targeting specific faulty genes without causing harmful mutations in healthy DNA strands. Over several months, they painstakingly analyzed hundreds of natural proteins to identify those with similar repair functions and used cutting-edge gene editing technology like CRISPR to design a tailor-made protein variant that would excel at their job — targeting the CFTR (cystic fibrosis transmembrane conductance regulator) gene, which is responsible for cystic fibrosis.
+
+"This has been an ambitious journey full of challenges," said Dr. Martinez during her press conference on Monday where she detailed their groundbreaking accomplishment to a captivated audience including fellow biochemists, medical professionals and students at the Harvard University Medical School auditorium in Cambridge, MA (USA).
+
+Dr. James Foster, director of Cystic fibrosis Research Foundation who was also present during Monday's press conference shared his optimism about this significant advance: "This is a monumental step forward for cystic fibrosis and other genetic diseases — we are entering an era wherein science can directly correct the underlying cause instead of just treating symptoms."
+
+Although further research, testing on animal models as well human trials lie ahead before these advancements could become a reality in everyday medical practice it is clear from this initial success that custom-engineered enzymes have immense potential to be utilized for an array diseases currently considered untreatable. 
+
+For now, biochemists are preparing more robust testing methods and fine tuning the engineered protein's efficacy as well as safety in upcoming studies; but if all goes according with projections from Dr. Martinez herself: "This could change everything for millions of people affected by genetic diseases worldwide." 
+
+As science marches forward, it brings hope not just to those directly impacted and their families - who have long been waiting eagerly on the cusp of scientific innovation that can address untreatable conditions at its roots. As one parent testified during Monday's press conference: "For us as parents living with these devastating genetic diseases, it gives hope for our children and grandchildren too - a future where they are not just survivors but flourishers."

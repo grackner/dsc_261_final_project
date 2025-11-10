@@ -1,0 +1,19 @@
+Topic: Business - Tech
+
+A new technological breakthrough in quantum computing was announced yesterday by researchers at MIT and IBM's Thomas J. Watson Research Center. The teams unveiled a prototype that successfully executed Shor'selgorithms—a feat thought impossible until now due to the system's size—in just 20 minutes, as compared to hours or even days on classical computers for equivalent calculations previously reported in science journals this month alone (November).
+
+Dr. Alice Chen from MIT stated during her press conference that their breakthrough paves a way towards developing new encryption methods by exploiting quantum mechanics' intricate properties and promises an exponential acceleration of scientific research through the power of such technologies, potentially solving complex issues in chemistry, biology, and materials science within minutes instead of years.
+
+"The race for practical Quantum Computing is heating up," said IBM senior scientist Dr. John Carson who played a key role alongside MIT's team to achieve this historic milestone that could revolutionize the way businesses operate with secure information, enhancing productivity and advancing innovation across industries by 2030.
+
+The prototype used millions of qubits—a form of quantum bits essential for executing Shor'selgorithms effectively. Unlike classic computing where data is processed using binary digits (bits), the world of Quantum Computing relies on these unpredictable, yet powerful particles called 'qubits.' When multipled together in a certain way, they can represent both 0 and 1 simultaneously—an ability classical computers cannot match. The technology has limitations due to maintaining this quantum state over time as even the slightest change would cause errors known as "decoherence." Researchers believe their method for error correction could help surpass these hurdles, opening doors into a world where complex problems take mere minutes instead of months or years.
+
+"I am proud to be part of this historic day," said Chen with an excited tone during her press conference yesterday at MIT's Media Lab in Cambridge, Massachusetts on November 28th "But the race is far from over." This breakthrough has stirred competitive fever across tech giants like Google and Microsoft.
+
+Industry leaders anticipate this innovation will usher into a new era where secure information exchange becomes commonplace among businesses as wells, with potential implications for industries ranging healthcare to finance that are heavily reliant on encrypted communication channels today (which often take days or even weeks). They see quantum computing making rapid progress in this field within the next five years.
+
+"Our hope is not just about speed but security," said Dr. Carson, while emphasizing his beliefs during a conversation with journalists following yesterday's press conference at MIT. "Quantum computers can execute algorithms that render existing encryption methods obsolete in mere moments." He continued saying this development could usher into an era where sensitive data is safe from the threat of quantum attacks by next decade (2030).
+
+Critics argue about potential misuse and ethical implications arising out with such powerful technology, citing fears over cybersecurity threats—an argument that researchers insist are unfounded. The MIT-IBM team is currently developing further prototypes to expand on this milestone while addressing concerns of practicality outside laboratory conditions as they plan to deploy their quantum machine in industry within three years (2025).
+
+Many hope for tangible applications soon enough, with

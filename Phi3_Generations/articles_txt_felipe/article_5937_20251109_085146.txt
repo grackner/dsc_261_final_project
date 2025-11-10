@@ -1,0 +1,21 @@
+Topic: Science - Medicine
+
+A team of researchers at Johns Hopkins University announced a breakthrough in gene therapy for cystic fibrosis on Thursday morning local time. Clinicians used the newly developed CRISPR technique to edit genes responsible for this debilit endocrinologiqc disease, offering hope to thousands suffering worldwide.
+
+
+"This is a monumental step towards treating cystic fibrosis at its root cause," said Dr. Sarah Connolly, lead researcher and professor of molecular biology at the university's School of Medicine. "We have observed significant improvements in lung function among our test subjects."
+
+
+Cystic fibrosis is a genetic disorder that primarily affects the lungs and digestive system due to malfunctioning CFTR proteins, leading to mucus buildup that causes difficulty breathing and can result in severe complications. The disease typically manifests during early childhood or adolescence and has been a focal point of research for decades.
+
+
+The experimental therapy was carried out on ten patients between the ages of 18 to 40, all suffering from various forms of cystic fibrosis in Baltimore City with no prior lung transplant surgeries or other advanced medical interventions that could confound results. The procedure involved collecting their bone marrow stem cells and then reintroducing the genetically modified ones back into their bloodstreams using a non-invasive technique called peripheral blood stem cell mobilization, developed by Dr. Emily Huang's lab at Johns Hopkins University in collaboration with international experts on gene editing technology.
+
+
+"It was challenging to ensure precision when targeting the faulty CFTR genes," acknowledges researcher Alexei Petrov of Moscow State Medical University who provided crucial insights into cellular mechanisms facilitating successful delivery and integration of modified cells, "but every setback has been a lesson learned. We now have tangible evidence that CRISPR can be safely administered for this purpose."
+
+
+The next phase involves scaling up treatment to encompass hundreds of patients with the disease in various stages across different continents over coming years and includes rigorous monitoring post-therapy to assess long-term effects on both lung function and overall health. While still experimental, early results have already surpassed initial expectations based upon animal studies that were conducted five years ago which indicated similar promise but lacking definitive proof in human subjects until now.
+
+
+"We are entering a new era of cystic fibrosis treatment," states Dr. Connolly optimistically, noting the need for continued fundraising and patient advocacy efforts to make this advancement widely available as soon as clinical trials conclude with positive results in subsequent phases expected over two more years before seeking FDA approval if all goes well following stringent testing protocols that adhere strictly to ethical guidelines outlined by medical boards globally.

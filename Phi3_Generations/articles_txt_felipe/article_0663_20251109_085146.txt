@@ -1,0 +1,13 @@
+Topic: World - Asia
+
+In a startling development in Southeast Asia on April 10th, reports have emerged of an undisclosed cyber-attack crippling critical infrastructure across multiple Asian countries including Singapore, Malaysia, and Thailand. The extent of the digital assault has left millions without electricity as hackers exploited vulnerabilities in national power grids just before midnight local time (UTC+8).
+
+The affected regions experienced sporadic blackouts that were reported to last several hours beyond their initial outage times. While authorities are investigating, cybersecurity experts have already begun assessing the damage and potential weaknesses exploited by the attackers amid concerns of data breaches within government institutions linked with energy distribution networks.
+
+Singapore’s Minister for Communications and Information Technology Joseph Lai expressed his alarm: "We are dealing with a sophisticated cyber-attack that has had immediate impact on our nation's power supply, something we take very seriously." He went on to highlight the importance of international cooperation in tackling such threats.
+
+Malaysia’s Director General for Emergency and Relief Khairuddin Mohamad was seen urging residents not to panic but instead reassure them with statements like, "We are working tirelessly across government departments," emphasizing the coordinated efforts underway while acknowledging that it might take several days before full restoration of services.
+
+Authorities in Thailand reported they had identified a series of phishing emails used as entry points for the attackers into their systems, with local IT specialists pointing to possible links between these incidents and cyber threats from other parts of Asia previously unconnected by regional security intelligence. 
+
+CNN Newsroom | Copyright CNN, All Rights Reserved. 2024-Present
