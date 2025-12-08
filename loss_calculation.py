@@ -53,12 +53,11 @@ os.makedirs(save_dir, exist_ok=True)
 #######################################
 MIN_NEW_TOKENS = 600
 MAX_NEW_TOKENS = 1100
-batch_size = 50
+batch_size = 15
 
 # Set model to evaluation mode
 model.eval()
 
-criterion =  nn.CrossEntropyLoss()
 losses = []
 # Disable gradient computation for inference
 with torch.no_grad():
@@ -70,21 +69,10 @@ with torch.no_grad():
         batch = input_df.iloc[start:end]
         
         # Batched tokenization
-        prefixes = batch["prefix"].tolist()
-        targets = batch["cleaner_article"].tolist()
-        # Encode inputs
-        tokenized_prefixes = tokenizer(
-            prefixes,
-            return_tensors="pt",
-            padding=True,
-            padding_side='left',
-            truncation=True,
-            max_length=2048
-        ).to(model.device)
-        
-        # Encode labels
-        labels = tokenizer(
-            targets,
+        real_articles = batch["cleaner_article"].tolist()
+        # Encode inputs/labels
+        tokenized_articles = tokenizer(
+            real_articles,
             return_tensors="pt",
             padding=True,
             padding_side='left',
@@ -92,21 +80,15 @@ with torch.no_grad():
             max_length=2048
         ).to(model.device)
 
-        outputs = model.generate(
-            **tokenized_prefixes,
-            max_new_tokens=MAX_NEW_TOKENS,
-            min_new_tokens=MIN_NEW_TOKENS,
-            do_sample=True,
-            temperature=0.4,
-            top_p=0.9,
-            repetition_penalty=1.2,
-            no_repeat_ngram_size=3
+        outputs = model(
+                    input_ids=tokenized_articles["input_ids"],
+                    attention_mask=tokenized_articles["attention_mask"],
+                    labels=tokenized_articles["input_ids"]
         )
         
         # Compare Generated tokens to real dataset
         # Calculate loss
-        loss = criterion(outputs["input_ids"], labels["input_ids"])
-        losses.append(loss)
+        losses.append(outputs["loss"].item())
         # Optional: Print GPU memory usage
         if torch.cuda.is_available():
             print(f"Batch {b+1}/{num_batches} | GPU memory: {torch.cuda.memory_allocated(0)/1e9:.2f}GB")
