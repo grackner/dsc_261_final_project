@@ -38,15 +38,7 @@ print(f"Model device: {model.device}")
 #################################
 # --------- LOAD DATA --------- #
 #################################
-synthetic_data = "Synthetic Data/data_for_model2b_additional_v2.csv"
-synthetic = pd.read_csv("Synthetic Data/data_for_model2b_additional (1).csv", on_bad_lines="skip", engine="python", encoding="latin")
-# pd.read_csv(synthetic_data, on_bad_lines="skip", engine="python") # on_bad_lines="skip", engine="python"
-person = "Gabi"
-input_df = synthetic[synthetic["person"] == person].copy()
-input_df["generated_text"] = ""
-
-save_dir = "inference_outputs_testing_unique"
-os.makedirs(save_dir, exist_ok=True)
+input_df = pd.read_csv("test_data_prepared.csv", on_bad_lines="skip", engine="python", encoding="latin")
 
 #######################################
 # --------- DATA GENERATION --------- #
