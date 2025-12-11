@@ -4,7 +4,7 @@ Directories:
 2. Phi3_Generations- Directory contains the scripts to run inference on Phi model and synthetic datasets
 3. Gemma- Directory contains code and generated datasets related to the Gemma model
 4. Tinyllama- Directory contains code and generated datasets related to the Tinyllama model
-5. Opt_finetuning- Code to initially finetune the Opt model. Additional scripts are hosted on Google Drive
+5. Opt_finetuning- Code to initially finetune the Opt model. Additional scripts are hosted in the model folder
 6. Opt_inference- Code to generate outputs from the finetuned Opt model
 7. Qwen folder contains code to run inference on Qwen and some sample outputs
 8. synthetic_training_data- contains some of our synthetic training data but most is hosted on Google Drive (see below)
@@ -14,5 +14,5 @@ Misc files:
 - Loss calculation script for calculating cross-entropy loss on each interation of our models
   
 Models and Large Files:
-1. Models are stored on Google Drive here:
-2. Synthetic training data stored here: 
+1. Models are stored on Google Drive here: https://drive.google.com/drive/folders/1Tt969nXSbSrpvLrTdMy5PI90ZEAvKXcw?usp=drive_link, https://drive.google.com/drive/folders/1vKgcGXMMV2Jr3s-72XFr3gfzjJ6UV8GI?usp=drive_link
+2. Synthetic training data stored here: https://drive.google.com/drive/folders/1SEwU3maTAVwUAtTE6R2-x5bGxxJvK98P?usp=drive_link
